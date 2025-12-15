@@ -1,8 +1,8 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
-import { formatDate, formatTime } from "@/utils/dateTimeParser";
 import Image from "next/image";
-import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -384,54 +384,12 @@ const gurus = [
   },
 ];
 
-const Index = ({
-  masterclassId,
-  masterclass,
-  fullDomain,
-  abTestType,
-  abTestCounter,
-}: {
-  masterclassId: string;
-  masterclass: any;
-  fullDomain: string;
-  abTestType: string;
-  abTestCounter: number;
-}) => {
-  const router = useRouter();
-  const source = router.query.source;
-  const leadComment = router.query.comment;
-  const slots = masterclass?.slots;
-  const activeSlot = slots?.find((slot: any) => slot.active);
-  const activeDate = formatDate(activeSlot?.startDateTime);
-  const activeTimeSlot = formatTime(activeSlot?.startDateTime);
-  const [price, setPrice] = useState<any>({
-    price: masterclass.price,
-    discountedPrice: masterclass.discountedPrice,
-    workshopTitle: masterclass.title,
-    source: "default",
-  });
-  const amount = price?.discountedPrice;
-  useEffect(() => {
-    let data = masterclass?.metaData?.prices?.find(
-      (price: any) => price.source === source
-    );
-    if (data) {
-      setPrice(data);
-    }
-  }, [source, masterclass]);
-  const tkn = router.query.tkn;
-  const bkt = router.query.bkt;
-  const tokenObj = {discountedPrice:10};
-  const uiPrice = tokenObj?.discountedPrice ?? price?.discountedPrice;
-  const ctaText =
-    tkn && bkt == "B"
-      ? "Register Your Seat Now"
-      : `Register Now For ₹${uiPrice}`;
-  const formCtaText =
-    tkn && bkt == "B"
-      ? "Register  Your Seat Now"
-      : `Reserve Your Seat For Just ₹${uiPrice}`;
-  const [isEnrollNowFormOpen, setIsEnrollNowFormOpen] = useState(false);
+export default function Page() {
+  const [, setIsEnrollNowFormOpen] = useState(false);
+  const uiPrice = 10;
+  const ctaText = `Register Now For ₹${uiPrice}`;
+  const activeDate = "Mon 13 Jan";
+  const activeTimeSlot = "7:00 PM";
   return (
     <div className="min-h-screen bg-[#FFF8E5]  mx-auto relative">
 
@@ -963,9 +921,7 @@ const Index = ({
       </section>
     </div>
   );
-};
-
-export default Index;
+}
 
 const FaqAccordionItem: React.FC<{ item: FaqItem }> = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -1081,7 +1037,7 @@ function CaraouselComp() {
 
 
   return (
-    <div className="w-[75%]   aspect-[9:16] max-w-sm mx-auto  z-[26] relative">
+    <div className="w-[75%] aspect-[9/16] max-w-sm mx-auto z-[26] relative">
       <Carousel
         setApi={setApi}
         className="w-full"
@@ -1127,124 +1083,4 @@ function CaraouselComp() {
       </div>
     </div>
   );
-}
-
-const InfiniteLoopComp = ({items}:{items:any}) => {
-  
-
-
-  // Repeat items 4 times to simulate infinite scroll
-  const repeatedItems = Array(4)
-    .fill(items)
-    .flat();
-
-  return (
-    <div className="w-full aspect-[9/16] overflow-y-auto border border-gray-400 rounded-lg no-scrollbar">
-      {repeatedItems.map((item, index) => (
-        <div
-          key={index}
-          className="h-32 flex items-center justify-center border-b border-gray-300 bg-gradient-to-br from-pink-400 to-purple-500 text-white font-bold"
-        >
-
-         
-           <Card className="border-0 shadow-lg">
-                <CardContent className="p-0">
-                  <div className="relative aspect-[9/16] overflow-hidden rounded-lg">
-                    <Image
-                      src={item.src || "/placeholder.svg"}
-                      alt={item.alt}
-                      fill
-                      className="object-cover"
-                      priority={index === 0}
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-
-        </div>
-      ))}
-    </div>
-  );
-};
- function InfiniteScroll({items,durationInit}:{items:any[],durationInit?:any}) {
-  const scrollRef = useRef<HTMLDivElement>(null)
-
-  // 7 items that will be repeated
-  
-
-
-  // Repeat items 4 times for smooth infinite scroll
-  const repeatedItems = [...items, ...items, ...items, ...items]
-
-  useEffect(() => {
-    const scrollContainer = scrollRef.current
-    if (!scrollContainer) return
-
-    let animationId: number
-    let startTime: number
-    const duration = durationInit??20000 
-
-    const totalWidth = scrollContainer.scrollWidth / 2
-
-    const animate = (currentTime: number) => {
-      if (!startTime) startTime = currentTime
-      const elapsed = currentTime - startTime
-      const progress = (elapsed % duration) / duration
-      const translateX = -(progress * totalWidth)
-
-      scrollContainer.style.transform = `translateX(${translateX}px)`
-      animationId = requestAnimationFrame(animate)
-    }
-
-    animationId = requestAnimationFrame(animate)
-
-    return () => {
-      if (animationId) {
-        cancelAnimationFrame(animationId)
-      }
-    }
-  }, [])
-
-  return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-      {/* 9:16 aspect ratio container */}
-      <div className="w-80 aspect-[9/16] bg-white rounded-lg shadow-lg overflow-hidden relative">
-        {/* Infinite scroll container */}
-        <div className="h-full overflow-hidden">
-          <div
-            ref={scrollRef}
-            className="flex h-full transition-none will-change-transform hover:pause"
-            style={{ width: "max-content" }}
-          >
-            {repeatedItems.map((item, index) => (
-              <div
-                key={`${item.id}-${Math.floor(index / 7)}`}
-                className={`flex-shrink-0 w-32 h-full ${item.color} flex items-center justify-center font-bold text-lg mx-2 rounded-lg shadow-md hover:scale-105 transition-transform duration-200`}
-              >
-
-               <Card className="border-0 shadow-lg">
-                <CardContent className="p-0">
-                  <div className="relative aspect-[9/16] overflow-hidden rounded-lg">
-                    <Image
-                      src={item.src || "/placeholder.svg"}
-                      alt={item.alt}
-                      fill
-                      className="object-cover"
-                      priority={index === 0}
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Gradient overlays for smooth edges */}
-        <div className="absolute left-0 top-0 w-8 h-full bg-gradient-to-r from-white to-transparent pointer-events-none z-10"></div>
-        <div className="absolute right-0 top-0 w-8 h-full bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
-      </div>
-    </div>
-  )
 }
