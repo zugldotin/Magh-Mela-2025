@@ -253,19 +253,19 @@ const VideoIcon = () => (
 const benefits = [
   {
     icon: "/atmanirbhar/bird.gif",
-    title: "Earn<b> 1 Lakh+</b> monthly with Astrology",
+    title: "<b>Local Prayagraj Team</b><br/>On-ground support during your visit",
   },
   {
     icon: "/atmanirbhar/cert.gif",
-    title: "Become a<b> Certified & Trusted Astrologer</b>",
+    title: "<b>Trusted Stay Options</b><br/>Hotels, tents & dharamshalas",
   },
   {
     icon: "/atmanirbhar/lotus_n.gif",
-    title: "Access <b>100+ Guru-level secrets</b> no one shares!",
+    title: "<b>WhatsApp Trip Support</b><br/>Instant assistance anytime",
   },
   {
     icon: "/atmanirbhar/hand.gif",
-    title: "<b>Decode any Kundali</b> with confidence",
+    title: "<b>Safe & Family Friendly</b><br/>Senior & women friendly services",
   },
 ];
 
@@ -273,64 +273,51 @@ const benefits = [
 const journeyDays = [
   {
     day: 1,
-    title:
-      "Learn the art of pinpoint prediction through <b>KP Astrology</b>, guided by Prof. Krish.",
+    title: "<b>Holy Sangam Snan</b> with proper guidance & safe timing",
   },
   {
     day: 2,
-    title:
-      "Master the power of <b>Lal Kitab remedies</b> and chart-based corrections with Dr. Mahesh.",
+    title: "<b>Akhara & Temple Darshan</b> covering major spiritual spots",
   },
   {
     day: 3,
-    title:
-      "Master the most accurate prediction system of <b>Nakshatra Nadi</b> guided by Pt. Dinesh.",
+    title: "<b>Peaceful Morning Ganga Views</b> & spiritual atmosphere",
   },
   {
     day: 4,
-    title: "Learn <b>Vedic Numerology</b> and predict with powerful accuracy.",
+    title: "<b>Clean Stay & Pure Veg Food</b> arranged by locals",
   },
   {
     day: 5,
-    title:
-      "Unlock the hidden secrets of your birthdate using the power of the <b>Mystical Triangle</b>.",
+    title: "<b>Easy Travel Inside Mela</b> via cab & e-rickshaw",
   },
   {
     day: 6,
-    title:
-      "Get 70+ powerful combinations for predictions using <b>Bhrigu Nandi Nadi</b>.",
-  },
-  {
-    day: 7,
-    title:
-      "Unlock the rarest, most potent <b>Aghori shastra</b> secrets to break lifelong blockages.",
-  },
-  {
-    day: 8,
-    title:
-      "Heal, attract, and align with the power of crystals by learning <b>crystal healing</b>.",
+    title: "<b>Guided Spiritual Journey</b> with Prayagraj experts",
   },
 ];
+
 
 // Statistics data
 const stats = [
   {
     icon: "/atmanirbhar/student_cert.gif",
-    title: "<b>1,000,000+</b> Learners Empowered",
+    title: "<b>10,000+</b><br/>Pilgrims Assisted",
   },
   {
     icon: "/atmanirbhar/books.gif",
-    title: "<b>20+ Authentic</b> Occult Courses",
+    title: "<b>50+</b><br/>Verified Stay Options",
   },
   {
     icon: "/atmanirbhar/mandala.gif",
-    title: "<b>10,000+ Skilled</b> Astrologers Trained",
+    title: "<b>24×7</b><br/>Local Support",
   },
   {
     icon: "/atmanirbhar/india.gif",
-    title: "<b>Pan-India & Global</b> Recognition",
+    title: "<b>Indian & Foreign</b><br/>Tourists Welcome",
   },
 ];
+
 
 // Guru photos
 const gurus = [
@@ -387,9 +374,10 @@ const gurus = [
 export default function Page() {
   const [, setIsEnrollNowFormOpen] = useState(false);
   const uiPrice = 10;
-  const ctaText = `Register Now For ₹${uiPrice}`;
-  const activeDate = "Mon 13 Jan";
-  const activeTimeSlot = "7:00 PM";
+const ctaText = "Book Your Magh Mela Slot";
+const activeDate = "Jan – Feb 2026";
+const activeTimeSlot = "Flexible Arrival Time";
+
   return (
     <div className="min-h-screen bg-[#FFF8E5]  mx-auto relative">
 
@@ -443,7 +431,9 @@ export default function Page() {
           />
             <div className="bg-white rounded-lg shadow-lg p-4 place-self-center  w-full h-auto max-w-[350px]">
               <h3 className="text-astro-gray-dark text-xl font-bold text-center mb-4 font-roboto text-balance">
-                India's Biggest Jyotish Learning Festival Is Here
+                Experience Magh Mela 2026, Prayagraj
+Simple booking, trusted local service
+
               </h3>
 
               <div className="grid grid-cols-2 gap-4 mb-4">
@@ -484,7 +474,7 @@ export default function Page() {
               />
 
               <p className="text-[#cd0000] text-center mb-6 font-poppins">
-                #HarrGharAstrologer
+                #MaghMela2026
               </p>
 
               {/* Event Highlights */}
@@ -570,9 +560,8 @@ export default function Page() {
             />
 
             <p className="text-white/80 text-base  leading-normal mb-8 font-poppins mx-3">
-              Hear from the 8 Gurus themselves — why they created this festival,
-              who is it for, and how it will change your spiritual and
-              professional path forever
+              A peaceful, spiritual and well-managed Magh Mela journey
+guided by trusted local experts.
             </p>
 
             {/* Video placeholder */}
@@ -626,9 +615,9 @@ export default function Page() {
           />
 
           <p className="leading-normal mb-5 font-poppins relative z-[4] text-[#787575]">
-            Practical path to self reliance in astrology.
+Trusted local Prayagraj team helping pilgrims
             <br />
-            Gain skills, clarity and credibility in just 8 days.
+experience Magh Mela safely and comfortably.
           </p>
 
           <div className="grid grid-cols-2  gap-2 mb-2 relative z-[5]">
@@ -956,31 +945,34 @@ interface FaqItem {
   question: string;
   answer: string;
 }
-const faqData: FaqItem[] = [{
-    question: "Is this beginner friendly?",
+const faqData: FaqItem[] = [
+  {
+    question: "What is the ₹199 / ₹499 payment for?",
     answer:
-      "Absolutely! This course is designed for beginners. We start from the basics and gradually move to advanced concepts, making sure you understand everything step by step.",
+      "This amount is for slot booking and trip planning. Remaining charges are paid later after final confirmation.",
   },
   {
-    question: "Will I get a certificate?",
+    question: "Is this service safe for families and seniors?",
     answer:
-      "Yes! After successfully completing the masterclass, you will receive a digital certificate that you can share or add to your profile.",
+      "Yes. Our services are family-friendly and supported by verified local partners in Prayagraj.",
   },
   {
-    question: "Are the classes live or recorded?",
+    question: "When will my stay be confirmed?",
     answer:
-      "The classes are live for an interactive experience, and all sessions are recorded so you can watch them anytime if you miss a class or want to revise.",
+      "After payment, our trip manager contacts you on WhatsApp to finalize stay and services.",
   },
   {
-    question: "Will I be able to predict after this?",
+    question: "Do you support foreign tourists?",
     answer:
-      "You will gain the skills and strategies needed to analyze charts and trends effectively. While predictions depend on practice and market conditions, this masterclass will give you the right tools to start making informed decisions.",
+      "Yes. We assist both Indian and international tourists with travel and stay planning.",
   },
   {
-    question: "Can I make a career after this?",
+    question: "How will I receive updates after booking?",
     answer:
-      "Yes, many students use the knowledge gained to start a trading or investing journey, and some even turn it into a full-time career. However, your growth will depend on consistent practice and applying what you learn.",
-  },];
+      "You will receive confirmation via email and WhatsApp support will start shortly.",
+  },
+];
+
 
 const testimonials = [
     {
