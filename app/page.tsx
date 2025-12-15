@@ -1,12 +1,8 @@
-import MarketingNewPaidForm from "@/components/marketingPages/MarketingNewPaidForm";
 import { Button } from "@/components/ui/button";
-import { formatDate, formatTime } from "@/marketingUtils/dateTimeParser";
-import { getToken } from "@/marketingUtils/utils";
-import axios from "axios";
+import { formatDate, formatTime } from "@/utils/dateTimeParser";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import { FiChevronDown } from "react-icons/fi";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -15,6 +11,7 @@ import {
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 import FlipboardTimer from "@/components/marketingPages/FlipboardCounter";
+import { ChevronDown } from "lucide-react";
 
 
 // Decorative ornament SVG component
@@ -386,44 +383,7 @@ const gurus = [
     content2: "17+ years of experience",
   },
 ];
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const { id, slug } = context.params as { id: string; slug: string };
-  const host = context.req?.headers.host;
-  const protocol = context.req?.headers["x-forwarded-proto"] || "http";
-  const fullDomain = `${protocol}://${host}`;
-  const abTestType = "1-field-lp-ab";
 
-  try {
-    const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_BASE_API}masterclasses/${id}?abtest=true&abtesttype=${abTestType}`,
-      {
-        headers: {
-          "Accept-Encoding": "gzip",
-        },
-      }
-    );
-
-    return {
-      props: {
-        masterclassId: id,
-        masterclass: data.data,
-        fullDomain: fullDomain,
-        abTestType,
-        abTestCounter: data.abTestCounter,
-      },
-    };
-  } catch (err) {
-    return {
-      props: {
-        masterclassId: id,
-        masterclass: {},
-        fullDomain: fullDomain,
-        abTestType,
-        abTestCounter: 0,
-      },
-    };
-  }
-}
 const Index = ({
   masterclassId,
   masterclass,
@@ -444,7 +404,7 @@ const Index = ({
   const activeSlot = slots?.find((slot: any) => slot.active);
   const activeDate = formatDate(activeSlot?.startDateTime);
   const activeTimeSlot = formatTime(activeSlot?.startDateTime);
-  const [price, setPrice] = useState<PriceObj>({
+  const [price, setPrice] = useState<any>({
     price: masterclass.price,
     discountedPrice: masterclass.discountedPrice,
     workshopTitle: masterclass.title,
@@ -453,7 +413,7 @@ const Index = ({
   const amount = price?.discountedPrice;
   useEffect(() => {
     let data = masterclass?.metaData?.prices?.find(
-      (price: PriceObj) => price.source === source
+      (price: any) => price.source === source
     );
     if (data) {
       setPrice(data);
@@ -461,7 +421,7 @@ const Index = ({
   }, [source, masterclass]);
   const tkn = router.query.tkn;
   const bkt = router.query.bkt;
-  const tokenObj = getToken((tkn as string) || undefined);
+  const tokenObj = {discountedPrice:10};
   const uiPrice = tokenObj?.discountedPrice ?? price?.discountedPrice;
   const ctaText =
     tkn && bkt == "B"
@@ -474,24 +434,7 @@ const Index = ({
   const [isEnrollNowFormOpen, setIsEnrollNowFormOpen] = useState(false);
   return (
     <div className="min-h-screen bg-[#FFF8E5]  mx-auto relative">
-      <MarketingNewPaidForm
-        isOpen={isEnrollNowFormOpen}
-        closeModal={() => setIsEnrollNowFormOpen(false)}
-        price={price}
-        masterclass={masterclass}
-        customCtaText={"Register Now"}
 
-        btnClass="!bg-gradient-to-r !from-[#FF6820] !via-white !to-[#046A38] md:py-3 !text-indigo-900 !text-[20px] !font-bold rounded-lg flex flex-row  gap-1 items-center justify-center hover:scale-105 relative"
-
-        showEmailField={false}
-        showNameField={false}
-        mrktToken={tokenObj?.token}
-        redirectUrl={
-          source == "google"
-            ? undefined
-            : `/${masterclass?.id}/redirect/thank-you`
-        }
-      />
       <section className="bg-[#FFF8E5] pb-16 px-10 h-[800px] flex flex-col items-center relative">
 
         <div
@@ -1037,7 +980,7 @@ const FaqAccordionItem: React.FC<{ item: FaqItem }> = ({ item }) => {
         <span className="font-semibold text-gray-700 text-md">
           {item.question}
         </span>
-        <FiChevronDown
+        <ChevronDown
           className={`transform transition-transform duration-300 ${isOpen ? "rotate-180" : ""
             }`}
         />
