@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import FlipboardTimer from "@/components/marketingPages/FlipboardCounter";
 import { ChevronDown } from "lucide-react";
 import EnrollmentModal from "@/components/EnrollmentModal";
+import { PricingCards } from "@/components/PaymentPlan";
 
 // Decorative ornament SVG component
 const DecorativeOrnament = ({ className = "", fill = "white" }) => (
@@ -252,7 +253,7 @@ const VideoIcon = () => (
 // Benefit cards data
 const benefits = [
   {
-    icon: "/atmanirbhar/bird.gif",
+    icon: "/atmanirbhar/student.gif",
     title:
       "<b>Local Prayagraj Team</b><br/>On-ground support during your visit",
   },
@@ -261,7 +262,7 @@ const benefits = [
     title: "<b>Trusted Stay Options</b><br/>Hotels, tents & dharamshalas",
   },
   {
-    icon: "/atmanirbhar/lotus_n.gif",
+    icon: "/atmanirbhar/whatappIcon.jpeg",
     title: "<b>WhatsApp Trip Support</b><br/>Instant assistance anytime",
   },
   {
@@ -297,6 +298,34 @@ const journeyDays = [
     title: "<b>Guided Spiritual Journey</b> with Prayagraj experts",
   },
 ];
+
+const steps = [
+  {
+    day: 1,
+    title: "<b>Choose Your Plan</b> — Normal or Premium as per your need",
+  },
+  {
+    day: 2,
+    title: "<b>Fill a Simple Booking Form</b> with basic travel details",
+  },
+  {
+    day: 3,
+    title: "<b>Pay ₹199 / ₹499</b> to confirm your Magh Mela slot",
+  },
+  {
+    day: 4,
+    title: "<b>Get Confirmation Email</b> with booking details",
+  },
+  {
+    day: 5,
+    title: "<b>WhatsApp Chat Starts</b> with your trip manager",
+  },
+  {
+    day: 6,
+    title: "<b>Final Planning on Call</b> — stay, food & travel finalized",
+  },
+];
+
 
 // Statistics data
 const stats = [
@@ -355,19 +384,7 @@ const gurus = [
     name: "Dr. Mahesh Mankar",
     content1: "Lal Kitab Expert",
     content2: "10+ years of experience",
-  },
-  {
-    imgUrl: "/atmanirbhar/chaitanyaa.webp",
-    name: "Dr. Chaitanyaa Missra",
-    content1: "Vastu Shastra Expert",
-    content2: "18+ years of experience",
-  },
-  {
-    imgUrl: "/atmanirbhar/ameeta.webp",
-    name: "Ameeta S Bhatia",
-    content1: "Akashic Records Expert",
-    content2: "17+ years of experience",
-  },
+  }
 ];
 
 export default function Page() {
@@ -379,7 +396,8 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-[#FFF8E5]  mx-auto relative">
-      <section className="bg-[#FFF8E5] pb-16 px-10 h-[800px] flex flex-col items-center relative">
+      <section className="bg-[url('/maghmela-nobg.png')] sm:bg-[url('/bkg.jpg')]  bg-cover bg-center bg-no-repeat pb-16 px-10 h-[800px] flex flex-col items-center relative">
+        <div className="absolute inset-0 bg-[#00000060] sm:bg-[#00000085]  min-h-dvh min-w-full" />
         <div
           className={cn(
             "absolute inset-0 z-10 opacity-5",
@@ -388,45 +406,33 @@ export default function Page() {
           )}
         />
 
-        <div className="absolute z-[12] bg-[radial-gradient(circle_at_center,_#ffffff50,_#ffffff0)] w-full !aspect-square rounded-full top-[50px]" />
+        <div className="bg-gradient-to-t from-[#FFF8E5]/80 via-[#FFF8E5]/40 to-transparent absolute bottom-0 left-0 right-0 h-14" />
 
-        <div className="max-w-md md:max-w-lg lg:max-w-xl mx-auto z-30">
-          <div className="bg-astro-red  text-center py-2 px-5 rounded-b-2xl mb-6 mx-auto w-fit bg-[#761D14] text-white">
+        <div className="max-md:max-w-md md:max-w-full  mx-auto z-30 relative">
+          {/* <div className="bg-astro-red  text-center py-2 px-5 rounded-b-2xl mb-6 mx-auto w-fit bg-[#761D14] text-white">
             <span className="font-bold text-base font-inter">
               Live 8 Days Event
             </span>
-          </div>
+          </div> */}
 
-          <div className="text-center mb-6 flex flex-col relative z-10">
-            <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/a7561c0d045a86c71713aacc60331a1ebd33a9e1?width=283"
-              alt="Astrolearn"
-              className="h-6 mx-auto mb-4"
-            />
+          <div className="text-center max-sm:mt-60 mt-36 flex flex-col relative z-10 items-center justify-center overflow-visible w-full  h-full sm:gap-3">
+            {/* <div className="bg-[radial-gradient(circle_at_center,#ffffff60_0%,#ffffff30_40%,transparent_75%)] w-[210%] h-[170%] absolute place-self-center rounded-full"/> */}
             <img
               src="/atmanirbhar/header.png"
               alt="Project Aatmanirbhar Jyotish"
-              className="w-80 h-auto mx-auto"
+              className="w-80 h-auto mx-auto z-10 md:w-96"
             />
-          </div>
-
-          <div className="text-center mb-6 z-10">
-            <div className="text-gray-500 font-poppins text-xs max-w-[280px] mx-auto">
-              From Learning to Legacy
-              <br /> Become an astrologer whom everyone trusts!
+            <div className="text-center mb-6 z-10 italic ">
+              <div className="text-[#fff] font-poppins text-xs md:text-sm max-w-[280px] md:max-w-[320px] mx-auto">
+                Experience the Divinity and
+                <br /> of Triveni Sangam at Prayagraj
+              </div>
             </div>
           </div>
 
           {/* Main Event Card */}
-          <div className="w-full flex flex-col items-center justify-center relative z-10 ">
-            <Image
-              src={"/atmanirbhar/teachers.webp"}
-              alt=""
-              width={400}
-              height={400}
-              className="w-full max-w-[350px] h-auto z-10"
-            />
-            <div className="bg-white rounded-lg shadow-lg p-4 place-self-center  w-full h-auto max-w-[350px]">
+          {/* <div className="w-full flex flex-col items-center justify-center relative z-10 md:-top-80 ">
+            <div className="bg-white rounded-lg shadow-lg p-4 place-self-center  w-full h-auto max-md:max-w-[350px]">
               <h3 className="text-astro-gray-dark text-xl font-bold text-center mb-4 font-roboto text-balance">
                 Experience Magh Mela 2026, Prayagraj Simple booking, trusted
                 local service
@@ -473,7 +479,6 @@ export default function Page() {
                 #MaghMela2026
               </p>
 
-              {/* Event Highlights */}
 
               <div className="space-y mb-3 ">
                 <div className="bg-white rounded-lg p-3 px-0  shadow-sm flex items-center gap-3 ">
@@ -521,12 +526,12 @@ export default function Page() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
       {/* Hero Section */}
-      <div className="relative flex flex-col items-center justify-center  overflow-x-clip ">
-        <div className="absolute bg-[#761D14] rounded-full w-[800px] aspect-square -top-24 z-0" />
+      <div className="relative hidden  flex-col items-center justify-center  overflow-x-clip ">
+        {/* <div className="absolute bg-[#761D14] rounded-full w-[800px] aspect-square -top-24 z-0" /> */}
 
         <div
           className={cn(
@@ -537,9 +542,9 @@ export default function Page() {
         />
 
         <section className="h-full flex flex-col justify-center items-center px-2 py-16 pb-8 relative overflow-hidden  bg-[#761D14] w-full ">
-          <div className="max-w-md md:max-w-2xl lg:max-w-4xl mx-auto text-center   relative   z-[30]  pt-[150px] flex flex-col items-center justify-center">
+          <div className="max-w-md md:max-w-4xl lg:max-w-4xl mx-auto text-center   relative   z-[30]  pt-[150px] flex flex-col items-center justify-center">
             <h1 className="text-white text-xl font-bold leading-tight mb-4 font-roboto pb-2 max-w-sm text-center">
-              Why this event is unlike anything you've seen before ?
+              Why this event is unlike anything you&apos;ve seen before ?
             </h1>
 
             <DecorativeOrnament
@@ -589,7 +594,7 @@ export default function Page() {
             "[background-image:linear-gradient(to_right,#333333_1px,transparent_1px),linear-gradient(to_bottom,#333333_1px,transparent_1px)]"
           )}
         />
-        <div className="max-w-md  mx-auto text-center relative z-10">
+        <div className="max-md:max-w-md max-w-4xl  mx-auto text-center relative z-10">
           <h2 className="text-astro-primary text-xl  font-bold mb-4 font-roboto pt-8 relative z-[4] text-[#761D14]">
             Why You Should Not Miss This?
           </h2>
@@ -605,32 +610,32 @@ export default function Page() {
             experience Magh Mela safely and comfortably.
           </p>
 
-          <div className="grid grid-cols-2  gap-2 mb-2 relative z-[5]">
+          <div className="grid grid-cols-2  gap-2 mb-2 relative z-[5] sm:flex">
             {benefits.map((benefit, index) => (
               <div
                 key={index}
-                className="bg-white rounded-lg p-[14px] shadow-sm flex flex-col items-center text-center"
+                className="bg-white rounded-lg p-[14px] shadow-sm flex flex-col items-center text-center md:w-[220px]"
               >
                 <img
                   src={benefit.icon}
                   alt=""
-                  className="!w-[60px] !aspect-square mb-3"
+                  className="!w-[60px] !aspect-square mb-3 sm:w-[65px]! "
                 />
                 <p
-                  className="text-astro-gray-dark text-[11.82px] font-semibold leading-tight font-poppins"
+                  className="text-astro-gray-dark text-[11.82px] font-semibold leading-tight font-poppins sm:text-sm"
                   dangerouslySetInnerHTML={{ __html: benefit.title }}
                 />
               </div>
             ))}
           </div>
 
-          <div className="bg-white rounded-lg p-4 shadow-sm flex items-center gap-4 mb-6 z-[6] relative">
+          <div className="bg-white rounded-lg p-4 shadow-sm flex items-center gap-4 mb-6 z-[6] relative sm:justify-center">
             <img
-              src="/atmanirbhar/student.gif"
+              src="/atmanirbhar/bird.gif "
               alt=""
-              className="!w-[60px] !aspect-square flex-shrink-0"
+              className="!w-[60px] !aspect-square flex-shrink-0 sm:W-[70px]!"
             />
-            <p className="text-astro-gray-dark text-xs font-semibold font-poppins">
+            <p className="text-astro-gray-dark text-xs font-semibold font-poppins sm:text-sm">
               <b>1M+</b>took the first step.
               <br /> Now it ‘s your turn to become a Part of India’s Largest
               Growing <b>Astro-Community</b>{" "}
@@ -646,7 +651,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="bg-astro-primary  p-8 pb-6 px-3 relative overflow-hidden bg-[#761D14]">
+      <section className="bg-astro-primary  p-8 pb-6 max-sm:px-3 relative overflow-hidden bg-[#761D14]">
         <div
           className={cn(
             "absolute inset-0 z-[25] opacity-10",
@@ -654,41 +659,29 @@ export default function Page() {
             "[background-image:linear-gradient(to_right,#f3f3f3_1px,transparent_1px),linear-gradient(to_bottom,#f3f3f3_1px,transparent_1px)]"
           )}
         />
-        <div className="max-w-md  mx-auto text-center relative z-30">
+        <div className="max-md:max-w-md  mx-auto text-center relative z-30 md:w-4xl w-full">
           <h2 className="text-white text-xl  mb-4 font-roboto">
-            Your 8-Day Journey to Self-Reliance Through Jyotish
+            What You Will Experience
           </h2>
 
           <DecorativeOrnament className="w-72 h-4 mx-auto mb-8" fill="white" />
 
-          <div className="relative md:max-w-2xl md:mx-auto">
-            <div className="absolute left-5 top-8 bottom-8 w-0.5 border-l-2 border-dashed  border-white/60"></div>
+          <div className="relative md:max-w-4xl md:mx-auto">
 
             <div className="space-y-4">
               {journeyDays.map((day, index) => (
                 <div key={index} className="flex items-center gap-2">
-                  {/* Number circle */}
-                  <div className="relative z-10 bg-white/30 rounded-full p-1 flex-shrink-0">
-                    <div className="bg-white rounded-full w-8 h-8 flex items-center justify-center">
-                      <span className="text-astro-primary font-bold text-xs font-poppins">
-                        {day.day}
-                      </span>
-                    </div>
-                  </div>
 
                   {/* Day info */}
                   <div className="bg-white rounded-lg p-[9px] px-[5px] flex-1 flex items-center gap-1 shadow-sm">
                     <img
                       src="/atmanirbhar/lotus.gif"
                       alt=""
-                      className="w-[50px] h-[50px] flex-shrink-0"
+                      className="w-[50px]  flex-shrink-0 sm:w-[55px]! aspect-square!"
                     />
                     <div className="flex-1">
-                      <h3 className="text-astro-gray-dark text-xs font-bold mb-1 font-poppins text-left">
-                        Day {day.day}
-                      </h3>
                       <p
-                        className="text-astro-gray-medium text-[12px] leading-tight font-poppins text-left "
+                        className="text-astro-gray-medium text-[12px] leading-tight font-poppins text-left sm:text-[16px]"
                         dangerouslySetInnerHTML={{ __html: day.title }}
                       />
                     </div>
@@ -723,7 +716,7 @@ export default function Page() {
             "[background-image:linear-gradient(to_right,#333333_1px,transparent_1px),linear-gradient(to_bottom,#333333_1px,transparent_1px)]"
           )}
         />
-        <div className="max-w-md mx-auto text-center">
+        <div className="max-md:max-w-md mx-auto text-center max-w-4xl">
           <h2 className="text-astro-primary text-xl  font-bold mb-4 font-roboto z-10 relative text-[#761d14]">
             Trusted by Over 1 Million Spiritual Learners
           </h2>
@@ -741,11 +734,11 @@ export default function Page() {
           </p>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-2  gap-2 mb-2 z-10 relative">
+          <div className="grid grid-cols-2  gap-2 mb-2 z-10 relative md:flex ">
             {stats.map((stat, index) => (
               <div
                 key={index}
-                className="bg-white rounded-lg p-4 shadow-sm flex flex-col items-center text-center"
+                className="bg-white rounded-lg p-4 shadow-sm flex flex-col items-center text-center md:w-[220px]"
               >
                 <img
                   src={stat.icon}
@@ -753,7 +746,7 @@ export default function Page() {
                   className="!w-[60px] !aspect-square mb-3"
                 />
                 <p
-                  className="text-astro-gray-dark text-xs font-semibold leading-tight font-poppins"
+                  className="text-astro-gray-dark text-xs font-semibold leading-tight font-poppins sm:text-sm"
                   dangerouslySetInnerHTML={{ __html: stat.title }}
                 />
               </div>
@@ -761,14 +754,14 @@ export default function Page() {
           </div>
 
           {/* Teacher stat - full width */}
-          <div className="bg-white rounded-lg p-4 shadow-sm flex items-center gap-4 mb-8 z-10 relative">
+          <div className="bg-white rounded-lg p-4 shadow-sm flex items-center gap-4 mb-8 z-10 relative justify-center">
             <img
               src="/atmanirbhar/teacher.gif"
               alt=""
               className="!w-[60px] !aspect-square flex-shrink-0"
             />
-            <p className="text-astro-gray-dark text-xs font-semibold font-poppins">
-              Led by <b>India's Most Credible</b> Teachers
+            <p className="text-astro-gray-dark text-xs font-semibold font-poppins sm:text-sm">
+              Led by <b>India&apos;s Most Credible</b> Teachers
             </p>
           </div>
 
@@ -791,7 +784,7 @@ export default function Page() {
           )}
         />
 
-        <div className="max-w-md  z-30 mx-auto text-center relative">
+        <div className="max-w-md  z-30 mx-auto text-center relative md:max-w-4xl">
           <h2 className="text-white text-xl  font-bold mb-4 font-roboto">
             Guided by the Best in the Field
           </h2>
@@ -806,9 +799,9 @@ export default function Page() {
           </p>
 
           {/* Gurus Grid */}
-          <div className="grid grid-cols-2 gap-4 mb-8 text-white z-30 relative">
+          <div className="grid grid-cols-2 gap-4 mb-8 text-white z-30 relative md:grid-cols-3">
             {gurus.map((guru, index) => (
-              <div key={index} className=" rounded-xl overflow-hidden">
+              <div key={index} className=" rounded-xl overflow-hidden ">
                 <div className="">
                   <Image
                     src={guru.imgUrl}
@@ -835,10 +828,74 @@ export default function Page() {
           </Button>
         </div>
       </section>
+      <PricingCards/>
+ <section className="bg-astro-primary  p-8 pb-6 max-sm:px-3 relative overflow-hidden bg-[#761D14]">
+        <div
+          className={cn(
+            "absolute inset-0 z-[25] opacity-10",
+            "[background-size:30px_30px]",
+            "[background-image:linear-gradient(to_right,#f3f3f3_1px,transparent_1px),linear-gradient(to_bottom,#f3f3f3_1px,transparent_1px)]"
+          )}
+        />
+        <div className="max-md:max-w-md  mx-auto text-center relative z-30 md:w-4xl w-full">
+          <h2 className="text-white text-xl  mb-4 font-roboto">
+            What You Will Experience
+          </h2>
 
+          <DecorativeOrnament className="w-72 h-4 mx-auto mb-8" fill="white" />
+
+          <div className="relative md:max-w-4xl md:mx-auto">
+            <div className="absolute left-5 top-8 bottom-8 w-0.5 border-l-2 border-dashed  border-white/60"></div>
+
+            <div className="space-y-4">
+              {steps.map((day, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  {/* Number circle */}
+                  <div className="relative z-10 bg-white/30 rounded-full p-1 flex-shrink-0">
+                    <div className="bg-white rounded-full w-8 h-8 flex items-center justify-center sm:w-8! sm:h-8!">
+                      <span className="text-astro-primary font-bold text-xs font-poppins text-[16px]">
+                        {day.day}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Day info */}
+                  <div className="bg-white rounded-lg p-[9px] px-[5px] flex-1 flex items-center gap-1 shadow-sm">
+                    <img
+                      src="/atmanirbhar/lotus.gif"
+                      alt=""
+                      className="w-[50px]  flex-shrink-0 sm:w-[55px]! aspect-square!"
+                    />
+                    <div className="flex-1">
+                      <p
+                        className="text-astro-gray-medium text-[12px] leading-tight font-poppins text-left sm:text-[16px]"
+                        dangerouslySetInnerHTML={{ __html: day.title }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-5 z-[30]">
+            <DecorativeOrnament
+              className="w-72 h-4 mx-auto mb-4 "
+              fill="white"
+            />
+
+            <Button
+              className="inline-flex items-center justify-center w-full !bg-white !text-black font-bold text-lg py-6 px-8 rounded-xl   z-[26]"
+              onClick={() => setIsEnrollNowFormOpen(true)}
+            >
+              {ctaText ?? "Claim Your FREE Seat Now"}
+            </Button>
+          </div>
+        </div>
+      </section>
       {/* Final CTA Section */}
-      <section className="bg-white py-2 px-3  fixed bottom-0 left-0 right-0 z-40 max-w-md mx-auto">
-        <div className="absolute w-full h-full bg-gradient-to-r from-[#FF682070] via-white to-[#046A3875] left-0 bottom-0 flex" />
+      <section className="bg-white py-2 px-3  fixed bottom-0 left-0 right-0 z-40 max-md:max-w-md mx-auto ">
+        <div className="absolute w-full h-full sm:bg-[url('/atmanirbhar/bgImg.jpeg')] bg-cover bg-bottom bg-no-repeat left-0 bottom-0 flex" />
         <div className="absolute w-full h-[70%] bg-gradient-to-b from-white via-white/80 to-white/10 left-0 top-0 flex z-10" />
 
         <div className="w-full flex gap-3 relative max-w-96 mx-auto z-20">
@@ -851,7 +908,7 @@ export default function Page() {
           </Button>
         </div>
       </section>
-      <section className="max-w-md md:max-w-2xl lg:max-w-4xl mx-auto text-center relative z-10 p-8">
+      <section className="max-w-md md:max-w-4xl lg:max-w-4xl mx-auto text-center relative z-10 p-8">
         <div
           className={cn(
             "absolute inset-0 z-10 opacity-5",
@@ -867,28 +924,8 @@ export default function Page() {
 
         <CaraouselComp />
       </section>
-      <section className="w-full max-w-4xl mx-auto p-6 !pb-24 relative bg-[rgb(118,29,20)]">
-        <div
-          className={cn(
-            "absolute inset-0 z-20 opacity-5",
-            "[background-size:30px_30px]",
-            "[background-image:linear-gradient(to_right,#f3f3f3_1px,transparent_1px),linear-gradient(to_bottom,#f3f3f3_1px,transparent_1px)]"
-          )}
-        />
-        <h2 className="text-2xl font-bold text-white mb-3 text-center">
-          Frequently Asked Questions
-        </h2>
-        <DecorativeOrnament className="w-72 h-4 mx-auto mb-3" fill="white" />
-        <div className="text-white text-center mb-3">
-          And how it will change your spiritual and professional path forever
-        </div>
-        <div className="relative z-[26] ">
-          {faqData.map((faq, index) => (
-            <FaqAccordionItem key={index} item={faq} />
-          ))}
-        </div>
-      </section>
-
+    
+      <Footer/>
       <EnrollmentModal
         open={isEnrollNowFormOpen}
         onOpenChange={setIsEnrollNowFormOpen}
@@ -907,7 +944,7 @@ const FaqAccordionItem: React.FC<{ item: FaqItem }> = ({ item }) => {
         className="w-full flex justify-between items-center text-left "
         aria-expanded={isOpen}
       >
-        <span className="font-semibold text-gray-700 text-md">
+        <span className="font-semibold text-white text-md">
           {item.question}
         </span>
         <ChevronDown
@@ -1054,4 +1091,67 @@ function CaraouselComp() {
       </div>
     </div>
   );
+}
+
+export function Footer() {
+  return (
+    <footer className="bg-[#761C14] text-[#FFF8E5] py-12 px-6 pb-24 flex items-center justify-center flex-col w-full">
+      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 ">
+        {/* About Section */}
+        <div className="">
+          <h3 className="text-xl font-bold mb-4">About</h3>
+          <p className="text-[#FFF8E5]/90 leading-relaxed">
+            PrayagrajVisit.in is a local travel service helping pilgrims experience Magh Mela 2026 with comfort, safety
+            and trust.
+          </p>
+        </div>
+
+        {/* Contact Section */}
+        <div>
+          <h3 className="text-xl font-bold mb-4">Contact</h3>
+          <ul className="space-y-3 text-[#FFF8E5]/90">
+            <li className="flex items-center gap-2">
+              <span>📞</span>
+              <span>Helpline: XXXXXXXX</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span>💬</span>
+              <span>WhatsApp Support</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span>📧</span>
+              <span>Email support</span>
+            </li>
+          </ul>
+        </div>
+
+        {/* Legal Section */}
+        <div>
+          <h3 className="text-xl font-bold mb-4">Legal</h3>
+          <ul className="space-y-2">
+            <li>
+              <a href="#" className="text-[#FFF8E5]/90 hover:text-[#FFF8E5] transition-colors underline">
+                Privacy Policy
+              </a>
+            </li>
+            <li>
+              <a href="#" className="text-[#FFF8E5]/90 hover:text-[#FFF8E5] transition-colors underline">
+                Terms & Conditions
+              </a>
+            </li>
+            <li>
+              <a href="#" className="text-[#FFF8E5]/90 hover:text-[#FFF8E5] transition-colors underline">
+                Refund Policy
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Bottom Bar */}
+      <div className="max-w-6xl mx-auto mt-8 pt-6 border-t border-[#FFF8E5]/20 text-center">
+        <p className="text-[#FFF8E5]/80 text-sm">© 2026 PrayagrajVisit.in - All rights reserved</p>
+      </div>
+    </footer>
+  )
 }

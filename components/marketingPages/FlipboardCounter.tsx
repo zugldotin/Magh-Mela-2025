@@ -48,7 +48,7 @@ export default function FlipboardTimer({
     <div className="w-fit flex items-center justify-center ">
       <div className="w-fit ">
           <div className="flex justify-center ">
-            <span className="text-black text-xs font-medium">SLOT ENDS IN</span>
+            <span className="text-black text-xs font-bold">MELA STARTS IN</span>
           </div>
         {/* Timer Display */}
         <div className="">
@@ -103,7 +103,7 @@ const FlipDigit: React.FC<FlipDigitProps> = ({ digit, className = "" }) => {
   
 
   return (
-    <div className={`relative w-[20px] h-[20px] ${className}`}>
+    <div className={`relative w-[20px] h-[20px] ${className} `}>
       <div className="w-full h-full ">
         <div
           className={`flip-card-inner !rounded-none`}
@@ -113,11 +113,11 @@ const FlipDigit: React.FC<FlipDigitProps> = ({ digit, className = "" }) => {
           }}
         >
           {/* Front face */}
-          <div className="flip-card-front absolute inset-0 flex items-center justify-center bg-gray-900 text-white ">
+          <div className="flip-card-front absolute inset-0 flex items-center justify-center text-gray-900! bg-white!  ">
             <span>{currentDigit}</span>
           </div>
           {/* Back face */}
-          <div className="flip-card-back absolute inset-0 flex items-center justify-center bg-gray-800 text-white " style={{ backfaceVisibility: "hidden", transform: "rotateX(180deg)" }}>
+          <div className="flip-card-back absolute inset-0 flex items-center justify-center text-gray-900! bg-white! " style={{ backfaceVisibility: "hidden", transform: "rotateX(180deg)" }}>
             <span>{nextDigit}</span>
           </div>
         </div>

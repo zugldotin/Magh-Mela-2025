@@ -123,3 +123,29 @@
     @apply bg-background text-foreground;
   }
 }
+
+.flip-card {
+  @apply w-full h-full relative;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  @apply relative w-full h-full transition-transform duration-300 ease-in-out;
+  transform-style: preserve-3d;
+}
+
+.flip-card-inner.flipping {
+  transform: rotateX(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  @apply absolute w-full h-full flex items-center justify-center text-sm font-bold text-white rounded-sm border border-gray-600 shadow-2xl;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-card-back {
+  transform: rotateX(180deg);
+}
+
