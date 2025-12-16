@@ -229,22 +229,6 @@ export function PricingCards() {
           </Card>
         </div>
 
-        {/* Trust Banner */}
-        <div className="bg-white rounded-lg p-4 shadow-sm flex items-center gap-4 mt-6 z-20 relative justify-center">
-          <img
-            src="/atmanirbhar/bird.gif"
-            alt=""
-            className="!w-[60px] !aspect-square flex-shrink-0"
-          />
-          <div className="text-left">
-            <p className="text-[#761D14] font-bold text-sm leading-tight font-roboto">
-              🕉️ Join thousands of pilgrims
-            </p>
-            <p className="text-[#787575] text-xs font-poppins">
-              experiencing the divine Magh Mela at Prayagraj Sangam
-            </p>
-          </div>
-        </div>
       </div>
     </section>
   );

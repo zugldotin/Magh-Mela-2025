@@ -10,12 +10,26 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
-import FlipboardTimer from "@/components/marketingPages/FlipboardCounter";
-import { ChevronDown } from "lucide-react";
+import {
+  ChevronDown,
+  Home,
+  Tent,
+  MapPin,
+  Star,
+  TentTree,
+  Building2,
+  UtensilsCrossed,
+  Car,
+  ShieldCheck,
+  Phone,
+  Users,
+  CreditCard,
+  CheckCircle,
+} from "lucide-react";
+import { motion } from "framer-motion";
 import EnrollmentModal from "@/components/EnrollmentModal";
 import { PricingCards } from "@/components/PaymentPlan";
 
-// Decorative ornament SVG component
 const DecorativeOrnament = ({ className = "", fill = "white" }) => (
   <svg
     className={className}
@@ -62,7 +76,6 @@ const DecorativeOrnament = ({ className = "", fill = "white" }) => (
   </svg>
 );
 
-// Calendar icon
 const CalendarIcon = () => (
   <svg
     width="24"
@@ -144,7 +157,6 @@ const CalendarIcon = () => (
   </svg>
 );
 
-// Language icon
 const LanguageIcon = () => (
   <svg
     width="24"
@@ -198,7 +210,6 @@ const LanguageIcon = () => (
   </svg>
 );
 
-// Clock icon
 const ClockIcon = () => (
   <svg
     width="24"
@@ -224,7 +235,6 @@ const ClockIcon = () => (
   </svg>
 );
 
-// Video icon
 const VideoIcon = () => (
   <svg
     width="24"
@@ -250,7 +260,6 @@ const VideoIcon = () => (
   </svg>
 );
 
-// Benefit cards data
 const benefits = [
   {
     icon: "/atmanirbhar/student.gif",
@@ -271,7 +280,26 @@ const benefits = [
   },
 ];
 
-// 8-day journey data
+const stayOptions = [
+  {
+    title: "Budget Guest House",
+    icon: "lucide:Home",
+    alt: "Budget guest house",
+  },
+  { title: "Mid-range Lodge", icon: "lucide:MapPin", alt: "Mid-range lodge" },
+  {
+    title: "Tent Accommodation",
+    icon: "lucide:Tent",
+    alt: "Tent accommodation",
+  },
+  { title: "Premium Camps", icon: "lucide:TentTree", alt: "Premium campsites" },
+  {
+    title: "Ashram / Dharamshala Stay",
+    icon: "lucide:Building2",
+    alt: "Ashram stay lotus",
+  },
+];
+
 const journeyDays = [
   {
     day: 1,
@@ -326,8 +354,6 @@ const steps = [
   },
 ];
 
-
-// Statistics data
 const stats = [
   {
     icon: "/atmanirbhar/student_cert.gif",
@@ -347,44 +373,49 @@ const stats = [
   },
 ];
 
-// Guru photos
 const gurus = [
   {
-    imgUrl: "/atmanirbhar/krish.webp",
-    name: "Prof. Krish Murali Eswar",
-    content1: "KP Astrology Expert",
-    content2: "25+ years of experience",
+    imgUrl:
+      "https://images.unsplash.com/photo-1504198453319-5ce911bafcde?auto=format&fit=crop&w=1200&q=80",
+    name: "Pandit Ramesh Mishra",
+    content1: "Local Sangam Guide",
+    content2: "Trusted Prayagraj guide with 20+ years local experience",
   },
   {
-    imgUrl: "/atmanirbhar/krishna.webp", // Assuming this URL points to Krishna Sai Siri
-    name: "Krishna Sai Siri",
-    content1: "Crystal Healing Expert",
-    content2: "25+ years of experience",
+    imgUrl:
+      "https://images.unsplash.com/photo-1496483353456-90997957cf99?auto=format&fit=crop&w=1200&q=80",
+    name: "Acharya Satyendra",
+    content1: "Akhara Liaison",
+    content2: "Coordinates with akharas and spiritual groups",
   },
   {
-    imgUrl: "/atmanirbhar/rohet.webp",
-    name: "Dr. Rohet Sethi",
-    content1: "Mystical Triangle Expert",
-    content2: "20+ years of experience",
+    imgUrl:
+      "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=1200&q=80",
+    name: "Swami Anant Dev",
+    content1: "Sangam Safety Coordinator",
+    content2: "Emergency & crowd management specialist",
   },
   {
-    imgUrl: "/atmanirbhar/vaibhav.webp",
-    name: "Vaibhav Gupta",
-    content1: "Bhrigu Nandi Nadi Expert",
-    content2: "16+ years of experience",
+    imgUrl:
+      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80",
+    name: "Pandit Kashi Nath",
+    content1: "Pilgrim Assistance Lead",
+    content2: "Helps with stay, darshan and local logistics",
   },
   {
-    imgUrl: "/atmanirbhar/tarun.webp",
-    name: "Dr. Tarun Malik",
-    content1: "Past Life Regression Expert",
-    content2: "15+ years of experience",
+    imgUrl:
+      "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?auto=format&fit=crop&w=1200&q=80",
+    name: "Pooja Sehgal",
+    content1: "Volunteer & Welfare Lead",
+    content2: "Organises volunteer support for families and seniors",
   },
   {
-    imgUrl: "/atmanirbhar/mahesh.webp",
-    name: "Dr. Mahesh Mankar",
-    content1: "Lal Kitab Expert",
-    content2: "10+ years of experience",
-  }
+    imgUrl:
+      "https://images.unsplash.com/photo-1526505262320-1c2a6cfb0b23?auto=format&fit=crop&w=1200&q=80",
+    name: "Smt. Meera Verma",
+    content1: "Community Relations",
+    content2: "Local community coordinator for visitor services",
+  },
 ];
 
 export default function Page() {
@@ -396,8 +427,8 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-[#FFF8E5]  mx-auto relative">
-      <section className="bg-[url('/maghmela-nobg.png')] sm:bg-[url('/bkg.jpg')]  bg-cover bg-center bg-no-repeat pb-16 px-10 h-[800px] flex flex-col items-center relative">
-        <div className="absolute inset-0 bg-[#00000060] sm:bg-[#00000085]  min-h-dvh min-w-full" />
+      <section className="bg-[url('/maghmela-nobg.png')] sm:bg-[url('/bkg.jpg')] bg-cover bg-center bg-no-repeat pb-16 px-4 sm:px-6 lg:px-10 min-h-[640px] flex flex-col items-center relative">
+        <div className="absolute inset-0 bg-[#00000040] sm:bg-[#00000085]  min-h-dvh min-w-full" />
         <div
           className={cn(
             "absolute inset-0 z-10 opacity-5",
@@ -409,18 +440,15 @@ export default function Page() {
         <div className="bg-gradient-to-t from-[#FFF8E5]/80 via-[#FFF8E5]/40 to-transparent absolute bottom-0 left-0 right-0 h-14" />
 
         <div className="max-md:max-w-md md:max-w-full  mx-auto z-30 relative">
-          {/* <div className="bg-astro-red  text-center py-2 px-5 rounded-b-2xl mb-6 mx-auto w-fit bg-[#761D14] text-white">
-            <span className="font-bold text-base font-inter">
-              Live 8 Days Event
-            </span>
-          </div> */}
-
-          <div className="text-center max-sm:mt-60 mt-36 flex flex-col relative z-10 items-center justify-center overflow-visible w-full  h-full sm:gap-3">
-            {/* <div className="bg-[radial-gradient(circle_at_center,#ffffff60_0%,#ffffff30_40%,transparent_75%)] w-[210%] h-[170%] absolute place-self-center rounded-full"/> */}
-            <img
+          <div className="text-center mt-20 sm:mt-36 flex flex-col relative z-10 items-center justify-center overflow-visible w-full h-full sm:gap-3">
+            <motion.img
               src="/atmanirbhar/header.png"
               alt="Project Aatmanirbhar Jyotish"
-              className="w-80 h-auto mx-auto z-10 md:w-96"
+              loading="lazy"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="w-72 sm:w-80 md:w-96 h-auto mx-auto z-10 max-w-full max-md:mt-32"
             />
             <div className="text-center mb-6 z-10 italic ">
               <div className="text-[#fff] font-poppins text-xs md:text-sm max-w-[280px] md:max-w-[320px] mx-auto">
@@ -429,110 +457,10 @@ export default function Page() {
               </div>
             </div>
           </div>
-
-          {/* Main Event Card */}
-          {/* <div className="w-full flex flex-col items-center justify-center relative z-10 md:-top-80 ">
-            <div className="bg-white rounded-lg shadow-lg p-4 place-self-center  w-full h-auto max-md:max-w-[350px]">
-              <h3 className="text-astro-gray-dark text-xl font-bold text-center mb-4 font-roboto text-balance">
-                Experience Magh Mela 2026, Prayagraj Simple booking, trusted
-                local service
-              </h3>
-
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2">
-                    <CalendarIcon />
-                    <span className="text-astro-gray-dark font-semibold text-sm font-poppins">
-                      {activeDate}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <LanguageIcon />
-                    <span className="text-astro-gray-dark font-semibold text-sm font-poppins">
-                      English & Hindi
-                    </span>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2">
-                    <ClockIcon />
-                    <span className="text-astro-gray-dark font-semibold text-sm font-poppins">
-                      {activeTimeSlot}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <VideoIcon />
-                    <span className="text-astro-gray-dark font-semibold text-sm font-poppins">
-                      Live Classes
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <DecorativeOrnament
-                className="w-72 h-4 mx-auto mb-4"
-                fill="#CD0000"
-              />
-
-              <p className="text-[#cd0000] text-center mb-6 font-poppins">
-                #MaghMela2026
-              </p>
-
-
-              <div className="space-y mb-3 ">
-                <div className="bg-white rounded-lg p-3 px-0  shadow-sm flex items-center gap-3 ">
-                  <img src="/atmanirbhar/om.gif" alt="" className="w-12 h-12" />
-                  <div>
-                    <h4 className="text-astro-gray-dark font-bold text-xs mb-1 font-poppins">
-                      8 Days, 8 Gurus, 10+ Subjects
-                    </h4>
-                    <p className="text-astro-gray-medium text-xs leading-tight font-poppins">
-                      The foundation you need to become a trusted astrologer.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="bg-white rounded-lg p-3 px-0 shadow-sm flex items-center gap-3">
-                  <img
-                    src="/atmanirbhar/flower.gif"
-                    alt=""
-                    className="w-12 h-12"
-                  />
-                  <div>
-                    <h4 className="text-astro-gray-dark font-bold text-xs mb-1 font-poppins">
-                      Master Predictions. Heal Lives. Raise Status
-                    </h4>
-                    <p className="text-astro-gray-medium text-xs leading-tight font-poppins">
-                      From Lal Kitab to Past Life. Learn what matters.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="bg-white rounded-lg p-3 px-0 shadow-sm flex items-center gap-3">
-                  <img
-                    src="/atmanirbhar/lotus.gif"
-                    alt=""
-                    className="w-12 h-12"
-                  />
-                  <div>
-                    <h4 className="text-astro-gray-dark font-bold text-xs mb-1 font-poppins">
-                      For Learners, Healers & Future Astrologers
-                    </h4>
-                    <p className="text-astro-gray-medium text-xs leading-tight font-poppins">
-                      Personal use or career building, all in one journey!
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
         </div>
       </section>
-      {/* Hero Section */}
-      <div className="relative hidden  flex-col items-center justify-center  overflow-x-clip ">
-        {/* <div className="absolute bg-[#761D14] rounded-full w-[800px] aspect-square -top-24 z-0" /> */}
 
+      <div className="relative hidden  flex-col items-center justify-center  overflow-x-clip ">
         <div
           className={cn(
             "absolute inset-0 z-[25] -top-20 opacity-10",
@@ -557,8 +485,6 @@ export default function Page() {
               trusted local experts.
             </p>
 
-            {/* Video placeholder */}
-
             <div className=" rounded-lg mb-6 w-auto h-auto  flex items-center justify-center aspect-video relative z-30">
               <iframe
                 width="360"
@@ -576,7 +502,7 @@ export default function Page() {
             </div>
             <div className="w-full px-3">
               <Button
-                className="inline-flex items-center justify-center w-full !bg-white  font-bold text-lg py-6 px-8 rounded-xl !text-black  "
+                className="inline-flex items-center justify-center w-full !bg-white font-bold text-lg py-3 md:py-4 px-4 md:px-6 rounded-xl !text-black"
                 onClick={() => setIsEnrollNowFormOpen(true)}
               >
                 {ctaText ?? "Claim Your FREE Seat Now"}
@@ -595,7 +521,7 @@ export default function Page() {
           )}
         />
         <div className="max-md:max-w-md max-w-4xl  mx-auto text-center relative z-10">
-          <h2 className="text-astro-primary text-xl  font-bold mb-4 font-roboto pt-8 relative z-[4] text-[#761D14]">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4 tracking-tight text-[#761D14]">
             Why You Should Not Miss This?
           </h2>
 
@@ -612,30 +538,34 @@ export default function Page() {
 
           <div className="grid grid-cols-2  gap-2 mb-2 relative z-[5] sm:flex">
             {benefits.map((benefit, index) => (
-              <div
+              <motion.div
                 key={index}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.08 * index }}
                 className="bg-white rounded-lg p-[14px] shadow-sm flex flex-col items-center text-center md:w-[220px]"
               >
                 <img
                   src={benefit.icon}
                   alt=""
+                  aria-hidden="true"
                   className="!w-[60px] !aspect-square mb-3 sm:w-[65px]! "
                 />
                 <p
-                  className="text-astro-gray-dark text-[11.82px] font-semibold leading-tight font-poppins sm:text-sm"
+                  className="text-slate-800 text-sm sm:text-base font-semibold leading-tight font-poppins"
                   dangerouslySetInnerHTML={{ __html: benefit.title }}
                 />
-              </div>
+              </motion.div>
             ))}
           </div>
 
           <div className="bg-white rounded-lg p-4 shadow-sm flex items-center gap-4 mb-6 z-[6] relative sm:justify-center">
             <img
               src="/atmanirbhar/bird.gif "
-              alt=""
+              alt="Celebratory bird animation"
               className="!w-[60px] !aspect-square flex-shrink-0 sm:W-[70px]!"
             />
-            <p className="text-astro-gray-dark text-xs font-semibold font-poppins sm:text-sm">
+            <p className="text-slate-800 text-sm font-semibold font-poppins sm:text-base">
               <b>1M+</b>took the first step.
               <br /> Now it ‘s your turn to become a Part of India’s Largest
               Growing <b>Astro-Community</b>{" "}
@@ -643,7 +573,7 @@ export default function Page() {
           </div>
 
           <Button
-            className="inline-flex items-center justify-center w-full !bg-[#761d14] font-bold text-lg py-6 px-8 rounded-xl !text-white z-[6] relative mb-5"
+            className="inline-flex items-center justify-center w-full !bg-[#761d14] font-bold text-lg py-3 md:py-4 px-4 md:px-6 rounded-xl !text-white z-[6] relative mb-5"
             onClick={() => setIsEnrollNowFormOpen(true)}
           >
             {ctaText ?? "Claim Your FREE Seat Now"}
@@ -660,28 +590,26 @@ export default function Page() {
           )}
         />
         <div className="max-md:max-w-md  mx-auto text-center relative z-30 md:w-4xl w-full">
-          <h2 className="text-white text-xl  mb-4 font-roboto">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4 tracking-tight text-white">
             What You Will Experience
           </h2>
 
           <DecorativeOrnament className="w-72 h-4 mx-auto mb-8" fill="white" />
 
           <div className="relative md:max-w-4xl md:mx-auto">
-
             <div className="space-y-4">
               {journeyDays.map((day, index) => (
                 <div key={index} className="flex items-center gap-2">
-
-                  {/* Day info */}
                   <div className="bg-white rounded-lg p-[9px] px-[5px] flex-1 flex items-center gap-1 shadow-sm">
                     <img
                       src="/atmanirbhar/lotus.gif"
-                      alt=""
+                      alt="Lotus motif"
+                      aria-hidden="true"
                       className="w-[50px]  flex-shrink-0 sm:w-[55px]! aspect-square!"
                     />
                     <div className="flex-1">
                       <p
-                        className="text-astro-gray-medium text-[12px] leading-tight font-poppins text-left sm:text-[16px]"
+                        className="text-slate-700 text-sm leading-tight font-poppins sm:text-base"
                         dangerouslySetInnerHTML={{ __html: day.title }}
                       />
                     </div>
@@ -698,7 +626,7 @@ export default function Page() {
             />
 
             <Button
-              className="inline-flex items-center justify-center w-full !bg-white !text-black font-bold text-lg py-6 px-8 rounded-xl   z-[26]"
+              className="inline-flex items-center justify-center w-full !bg-white !text-black font-bold text-lg py-3 md:py-4 px-4 md:px-6 rounded-xl z-[26]"
               onClick={() => setIsEnrollNowFormOpen(true)}
             >
               {ctaText ?? "Claim Your FREE Seat Now"}
@@ -707,7 +635,127 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Trusted Learners Section */}
+      <section className="bg-[#FFF8E5] p-6 sm:p-8 max-sm:px-4 relative overflow-hidden">
+        <div
+          className={cn(
+            "absolute inset-0 z-10 opacity-5",
+            "[background-size:30px_30px]",
+            "[background-image:linear-gradient(to_right,#333333_1px,transparent_1px),linear-gradient(to_bottom,#333333_1px,transparent_1px)]"
+          )}
+        />
+
+        <div className="max-w-4xl mx-auto relative z-10">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4 tracking-tight text-[#761D14] text-center">
+            Stay Options (As Per Your Budget)
+          </h2>
+
+          <DecorativeOrnament
+            className="w-56 h-4 mx-auto mb-6"
+            fill="#761D14"
+          />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
+            {stayOptions.map((option, idx) => {
+              const isLucide = String(option.icon || "").startsWith("lucide:");
+              const lucideName = isLucide
+                ? String(option.icon).split(":")[1]
+                : null;
+              const lucideMap = {
+                Home,
+                Tent,
+                MapPin,
+                Star,
+                TentTree,
+                Building2,
+              } as any;
+
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.45, delay: 0.06 * idx }}
+                  className="bg-white rounded-xl shadow-sm overflow-hidden flex flex-col items-center"
+                >
+                  <div className="w-full flex items-center justify-center py-6">
+                    {isLucide && lucideName ? (
+                      (() => {
+                        const Icon = lucideMap[lucideName];
+                        return Icon ? <Icon size={36} color="#761D14" /> : null;
+                      })()
+                    ) : (
+                      <img
+                        src={String(option.icon || option.src)}
+                        alt={option.alt ?? option.title}
+                        className="w-12 h-12 object-contain"
+                        loading="lazy"
+                      />
+                    )}
+                  </div>
+                  <div className="p-3 sm:p-4 text-center">
+                    <p className="text-[#761D14] font-semibold text-sm sm:text-base">
+                      {option.title}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          <div className="bg-[#761D14] text-white rounded-lg p-4 text-center font-semibold">
+            👉 Final stay confirm trip manager call par
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-astro-primary p-8 pb-6 max-sm:px-3 relative overflow-hidden bg-[#761D14]">
+        <div
+          className={cn(
+            "absolute inset-0 z-[25] opacity-10",
+            "[background-size:30px_30px]",
+            "[background-image:linear-gradient(to_right,#f3f3f3_1px,transparent_1px),linear-gradient(to_bottom,#f3f3f3_1px,transparent_1px)]"
+          )}
+        />
+        <div className="max-md:max-w-md mx-auto text-center relative z-30 md:max-w-4xl md:w-full">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-8 tracking-tight text-white">
+            Food & Travel Services
+          </h2>
+
+          <div className="relative md:max-w-4xl md:mx-auto">
+            <div className="space-y-4 md:grid md:grid-cols-2 md:gap-6">
+              <div className="bg-white rounded-lg p-5 shadow-sm flex flex-col items-center justify-center h-full">
+                <div className=" gap-3 mb-4 flex flex-col items-center justify-center">
+                  <h3 className="text-xl font-bold text-[#761D14] flex flex-col items-center justify-center">
+                    <UtensilsCrossed /> Food
+                  </h3>
+                </div>
+                <ul className="space-y-2 text-slate-800 text-sm font-semibold font-poppins">
+                  <li>✓ Pure veg meals</li>
+                  <li>✓ Breakfast + Lunch + Dinner</li>
+                  <li>✓ Special Sangam Bhoj</li>
+                  <li>✓ International (on request)</li>
+                </ul>
+              </div>
+
+              <div className="bg-white rounded-lg p-5 shadow-sm flex flex-col items-center justify-center h-full">
+                <div className="flex items-center gap-3 mb-4 flex-col justify-center">
+                  <h3 className="text-xl font-bold text-[#761D14] flex flex-col items-center justify-center">
+                    <Car />
+                    Travel
+                  </h3>
+                </div>
+                <ul className="space-y-2 text-slate-800 text-sm font-semibold font-poppins">
+                  <li>✓ Airport / Railway pickup</li>
+                  <li>✓ Cab, Auto, E-rickshaw</li>
+                  <li>✓ Bike Taxi</li>
+                  <li>✓ 24×7 local support</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="bg-cream-gradient p-6 px-4 bg-[#FFF8E5] relative z-10">
         <div
           className={cn(
@@ -717,7 +765,7 @@ export default function Page() {
           )}
         />
         <div className="max-md:max-w-md mx-auto text-center max-w-4xl">
-          <h2 className="text-astro-primary text-xl  font-bold mb-4 font-roboto z-10 relative text-[#761d14]">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4 tracking-tight text-[#761D14]">
             Trusted by Over 1 Million Spiritual Learners
           </h2>
 
@@ -733,7 +781,6 @@ export default function Page() {
             skill — all from their home.
           </p>
 
-          {/* Stats Grid */}
           <div className="grid grid-cols-2  gap-2 mb-2 z-10 relative md:flex ">
             {stats.map((stat, index) => (
               <div
@@ -743,30 +790,30 @@ export default function Page() {
                 <img
                   src={stat.icon}
                   alt=""
+                  aria-hidden="true"
                   className="!w-[60px] !aspect-square mb-3"
                 />
                 <p
-                  className="text-astro-gray-dark text-xs font-semibold leading-tight font-poppins sm:text-sm"
+                  className="text-slate-800 text-sm font-semibold leading-tight font-poppins sm:text-base"
                   dangerouslySetInnerHTML={{ __html: stat.title }}
                 />
               </div>
             ))}
           </div>
 
-          {/* Teacher stat - full width */}
           <div className="bg-white rounded-lg p-4 shadow-sm flex items-center gap-4 mb-8 z-10 relative justify-center">
             <img
               src="/atmanirbhar/teacher.gif"
-              alt=""
+              alt="Teacher leading the program"
               className="!w-[60px] !aspect-square flex-shrink-0"
             />
-            <p className="text-astro-gray-dark text-xs font-semibold font-poppins sm:text-sm">
+            <p className="text-slate-800 text-sm font-semibold font-poppins sm:text-base">
               Led by <b>India&apos;s Most Credible</b> Teachers
             </p>
           </div>
 
           <Button
-            className="inline-flex items-center justify-center w-full  !text-white font-bold text-lg py-6 px-8 rounded-xl  !bg-[#761D14] z-10 relative"
+            className="inline-flex items-center justify-center w-full !text-white font-bold text-lg py-3 md:py-4 px-4 md:px-6 rounded-xl !bg-[#761D14] z-10 relative"
             onClick={() => setIsEnrollNowFormOpen(true)}
           >
             {ctaText ?? "Claim Your FREE Seat Now"}
@@ -774,7 +821,6 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Gurus Section */}
       <section className="bg-astro-primary  p-6 lg:px-12 relative overflow-hidden bg-[#761D14] z-10">
         <div
           className={cn(
@@ -785,7 +831,7 @@ export default function Page() {
         />
 
         <div className="max-w-md  z-30 mx-auto text-center relative md:max-w-4xl">
-          <h2 className="text-white text-xl  font-bold mb-4 font-roboto">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4 tracking-tight text-white">
             Guided by the Best in the Field
           </h2>
 
@@ -798,38 +844,45 @@ export default function Page() {
             Aatmanirbhar Jyotish
           </p>
 
-          {/* Gurus Grid */}
           <div className="grid grid-cols-2 gap-4 mb-8 text-white z-30 relative md:grid-cols-3">
             {gurus.map((guru, index) => (
-              <div key={index} className=" rounded-xl overflow-hidden ">
-                <div className="">
+              <div
+                key={index}
+                className="rounded-xl overflow-hidden bg-white/5 p-4 flex flex-col items-center text-center h-full"
+              >
+                <div className="w-28 h-28 rounded-full overflow-hidden mb-3 flex-shrink-0">
                   <Image
                     src={guru.imgUrl}
-                    alt=""
-                    width={400}
-                    height={400}
+                    alt={guru.name}
+                    width={112}
+                    height={112}
                     unoptimized
+                    className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="text-[12px] font-bold">{guru.name}</div>
-                <div className="text-[12px]">
-                  <div>{guru.content1}</div>
-                  <div className="text-[9px]">{guru.content2}</div>
+                <div className="text-sm font-bold truncate max-w-[160px]">
+                  {guru.name}
+                </div>
+                <div className="text-sm mt-1">
+                  <div className="truncate max-w-[200px]">{guru.content1}</div>
+                  <div className="text-xs text-white/85 truncate max-w-[200px]">
+                    {guru.content2}
+                  </div>
                 </div>
               </div>
             ))}
           </div>
 
           <Button
-            className="inline-flex items-center justify-center w-full !bg-white !text-black font-bold text-lg py-6 px-8 rounded-xl  "
+            className="inline-flex items-center justify-center w-full !bg-white !text-black font-bold text-lg py-3 md:py-4 px-4 md:px-6 rounded-xl"
             onClick={() => setIsEnrollNowFormOpen(true)}
           >
             {ctaText ?? "Claim Your FREE Seat Now"}
           </Button>
         </div>
       </section>
-      <PricingCards/>
- <section className="bg-astro-primary  p-8 pb-6 max-sm:px-3 relative overflow-hidden bg-[#761D14]">
+      <PricingCards />
+      <section className="bg-astro-primary  p-8 pb-6 max-sm:px-3 relative overflow-hidden bg-[#761D14]">
         <div
           className={cn(
             "absolute inset-0 z-[25] opacity-10",
@@ -838,7 +891,7 @@ export default function Page() {
           )}
         />
         <div className="max-md:max-w-md  mx-auto text-center relative z-30 md:w-4xl w-full">
-          <h2 className="text-white text-xl  mb-4 font-roboto">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4 tracking-tight text-white">
             What You Will Experience
           </h2>
 
@@ -850,25 +903,24 @@ export default function Page() {
             <div className="space-y-4">
               {steps.map((day, index) => (
                 <div key={index} className="flex items-center gap-2">
-                  {/* Number circle */}
                   <div className="relative z-10 bg-white/30 rounded-full p-1 flex-shrink-0">
                     <div className="bg-white rounded-full w-8 h-8 flex items-center justify-center sm:w-8! sm:h-8!">
-                      <span className="text-astro-primary font-bold text-xs font-poppins text-[16px]">
+                      <span className="text-astro-primary font-bold text-xs sm:text-sm font-poppins text-[16px]">
                         {day.day}
                       </span>
                     </div>
                   </div>
 
-                  {/* Day info */}
                   <div className="bg-white rounded-lg p-[9px] px-[5px] flex-1 flex items-center gap-1 shadow-sm">
                     <img
                       src="/atmanirbhar/lotus.gif"
-                      alt=""
+                      alt="Lotus motif"
+                      aria-hidden="true"
                       className="w-[50px]  flex-shrink-0 sm:w-[55px]! aspect-square!"
                     />
                     <div className="flex-1">
                       <p
-                        className="text-astro-gray-medium text-[12px] leading-tight font-poppins text-left sm:text-[16px]"
+                        className="text-slate-700 text-sm leading-tight font-poppins sm:text-base"
                         dangerouslySetInnerHTML={{ __html: day.title }}
                       />
                     </div>
@@ -885,7 +937,7 @@ export default function Page() {
             />
 
             <Button
-              className="inline-flex items-center justify-center w-full !bg-white !text-black font-bold text-lg py-6 px-8 rounded-xl   z-[26]"
+              className="inline-flex items-center justify-center w-full !bg-white !text-black font-bold text-lg py-3 md:py-4 px-4 md:px-6 rounded-xl z-[26]"
               onClick={() => setIsEnrollNowFormOpen(true)}
             >
               {ctaText ?? "Claim Your FREE Seat Now"}
@@ -893,22 +945,27 @@ export default function Page() {
           </div>
         </div>
       </section>
-      {/* Final CTA Section */}
+
       <section className="bg-white py-2 px-3  fixed bottom-0 left-0 right-0 z-40 max-md:max-w-md mx-auto ">
         <div className="absolute w-full h-full sm:bg-[url('/atmanirbhar/bgImg.jpeg')] bg-cover bg-bottom bg-no-repeat left-0 bottom-0 flex" />
         <div className="absolute w-full h-[70%] bg-gradient-to-b from-white via-white/80 to-white/10 left-0 top-0 flex z-10" />
 
-        <div className="w-full flex gap-3 relative max-w-96 mx-auto z-20">
-          <FlipboardTimer startMinutes={7} />
+        <motion.div
+          initial={{ y: 8, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="w-full flex gap-3 relative max-w-96 mx-auto z-20"
+        >
           <Button
-            className="inline-flex items-center justify-center w-full  !text-white font-bold text-lg py-6 px-8 rounded-xl   !bg-[#761D14] "
+            className="inline-flex items-center justify-center w-full !text-white font-bold text-lg py-3 md:py-4 px-4 md:px-6 rounded-xl !bg-[#761D14]"
             onClick={() => setIsEnrollNowFormOpen(true)}
           >
             {ctaText ?? "Claim Your FREE Seat Now"}
           </Button>
-        </div>
+        </motion.div>
       </section>
-      <section className="max-w-md md:max-w-4xl lg:max-w-4xl mx-auto text-center relative z-10 p-8">
+
+      <section className="bg-[#FFF8E5] p-6 sm:p-10 relative overflow-hidden">
         <div
           className={cn(
             "absolute inset-0 z-10 opacity-5",
@@ -916,16 +973,164 @@ export default function Page() {
             "[background-image:linear-gradient(to_right,#333333_1px,transparent_1px),linear-gradient(to_bottom,#333333_1px,transparent_1px)]"
           )}
         />
-        <h2 className="text-[#761d14] text-xl font-bold mb-4 font-roboto">
-          They Took the Leap — And It Changed Their Life{" "}
-        </h2>
 
-        <DecorativeOrnament className="w-72 h-4 mx-auto mb-6" fill="#761d14" />
+        <div className="max-w-6xl mx-auto relative z-20">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-4 tracking-tight text-[#761D14]">
+                SAFETY & SUPPORT
+              </h2>
+              <p className="text-[#761D14] mt-1 max-w-xl">
+                Your safety matters — vetted partners, on-ground help and
+                transparent pricing for peace of mind.
+              </p>
+            </div>
 
-        <CaraouselComp />
+            <div className="hidden sm:flex items-center gap-3">
+              <span className="text-sm text-slate-600">
+                Need immediate help?
+              </span>
+              <a
+                href="tel:+911234567890"
+                className="inline-flex items-center px-3 py-2 bg-[#761D14] text-white rounded-md text-sm shadow-sm"
+              >
+                <Phone className="w-4 h-4 mr-2" aria-hidden />
+                Call Helpline
+              </a>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <motion.article
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.08 }}
+                className={
+                  "flex gap-4 p-4 bg-white rounded-lg shadow-sm border"
+                }
+              >
+                <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-[#FFF8E5] text-[#761D14]">
+                  <ShieldCheck className="w-6 h-6" aria-hidden />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-[#761D14]">
+                    Verified partners
+                  </h3>
+                  <p className="text-sm text-slate-600">
+                    Vetted local accommodation, guides and vendors.
+                  </p>
+                </div>
+              </motion.article>
+
+              <motion.article
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.12 }}
+                className="flex gap-4 p-4 bg-white rounded-lg shadow-sm border"
+              >
+                <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-[#FFF8E5] text-[#761D14]">
+                  <Users className="w-6 h-6" aria-hidden />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-[#761D14]">
+                    Family & senior friendly
+                  </h3>
+                  <p className="text-sm text-slate-600">
+                    Accessible stays and extra assistance when needed.
+                  </p>
+                </div>
+              </motion.article>
+
+              <motion.article
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.16 }}
+                className="flex gap-4 p-4 bg-white rounded-lg shadow-sm border"
+              >
+                <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-[#FFF8E5] text-[#761D14]">
+                  <Phone className="w-6 h-6" aria-hidden />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-[#761D14]">
+                    24/7 local support
+                  </h3>
+                  <p className="text-sm text-slate-600">
+                    On-ground team and emergency helpline available round the
+                    clock.
+                  </p>
+                </div>
+              </motion.article>
+
+              <motion.article
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.2 }}
+                className="flex gap-4 p-4 bg-white rounded-lg shadow-sm border"
+              >
+                <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-[#FFF8E5] text-[#761D14]">
+                  <CreditCard className="w-6 h-6" aria-hidden />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-[#761D14]">
+                    Transparent pricing
+                  </h3>
+                  <p className="text-sm text-slate-600">
+                    Clear costs with no hidden fees or surprise charges.
+                  </p>
+                </div>
+              </motion.article>
+            </div>
+
+            <aside className="bg-white p-4 rounded-lg shadow-sm border flex flex-col justify-between">
+              <div>
+                <h4 className="text-lg font-semibold text-[#761D14]">
+                  On-call Support
+                </h4>
+                <p className="text-sm text-slate-600">
+                  Quick help via WhatsApp or phone. Save the helpline for urgent
+                  assistance.
+                </p>
+
+                <div className="mt-4 flex items-center gap-3">
+                  <a
+                    href="https://wa.me/911234567890"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 bg-[#25D366] text-white rounded-md text-sm"
+                  >
+                    <Phone className="w-4 h-4" aria-hidden />
+                    WhatsApp
+                  </a>
+                  <a
+                    href="tel:+911234567890"
+                    className="inline-flex items-center gap-2 px-3 py-2 border border-[#761D14] text-[#761D14] rounded-md text-sm"
+                  >
+                    <Phone className="w-4 h-4" aria-hidden />
+                    Call
+                  </a>
+                </div>
+              </div>
+
+              <div className="mt-6 text-sm text-slate-600">
+                <p className="mb-2">
+                  <strong className="text-[#761D14]">Emergency?</strong> Use the
+                  helpline above for immediate response.
+                </p>
+                <p>
+                  If you&apos;d like to report a non-urgent issue,{" "}
+                  <a href="/contact" className="text-[#761D14] underline">
+                    contact us
+                  </a>{" "}
+                  and we&apos;ll follow up within 24 hours.
+                </p>
+              </div>
+            </aside>
+          </div>
+        </div>
       </section>
-    
-      <Footer/>
+
+      <Footer />
       <EnrollmentModal
         open={isEnrollNowFormOpen}
         onOpenChange={setIsEnrollNowFormOpen}
@@ -1077,7 +1282,6 @@ function CaraouselComp() {
         </CarouselContent>
       </Carousel>
 
-      {/* Dots indicator */}
       <div className="flex justify-center mt-4 space-x-2">
         {testimonials.map((_, index) => (
           <div
@@ -1097,16 +1301,14 @@ export function Footer() {
   return (
     <footer className="bg-[#761C14] text-[#FFF8E5] py-12 px-6 pb-24 flex items-center justify-center flex-col w-full">
       <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 ">
-        {/* About Section */}
         <div className="">
           <h3 className="text-xl font-bold mb-4">About</h3>
           <p className="text-[#FFF8E5]/90 leading-relaxed">
-            PrayagrajVisit.in is a local travel service helping pilgrims experience Magh Mela 2026 with comfort, safety
-            and trust.
+            PrayagrajVisit.in is a local travel service helping pilgrims
+            experience Magh Mela 2026 with comfort, safety and trust.
           </p>
         </div>
 
-        {/* Contact Section */}
         <div>
           <h3 className="text-xl font-bold mb-4">Contact</h3>
           <ul className="space-y-3 text-[#FFF8E5]/90">
@@ -1125,22 +1327,21 @@ export function Footer() {
           </ul>
         </div>
 
-        {/* Legal Section */}
         <div>
           <h3 className="text-xl font-bold mb-4">Legal</h3>
           <ul className="space-y-2">
             <li>
-              <a href="#" className="text-[#FFF8E5]/90 hover:text-[#FFF8E5] transition-colors underline">
+              <a href="#" className="text-[#FFF8E5]/90 underline">
                 Privacy Policy
               </a>
             </li>
             <li>
-              <a href="#" className="text-[#FFF8E5]/90 hover:text-[#FFF8E5] transition-colors underline">
+              <a href="#" className="text-[#FFF8E5]/90 underline">
                 Terms & Conditions
               </a>
             </li>
             <li>
-              <a href="#" className="text-[#FFF8E5]/90 hover:text-[#FFF8E5] transition-colors underline">
+              <a href="#" className="text-[#FFF8E5]/90 underline">
                 Refund Policy
               </a>
             </li>
@@ -1148,10 +1349,11 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Bottom Bar */}
       <div className="max-w-6xl mx-auto mt-8 pt-6 border-t border-[#FFF8E5]/20 text-center">
-        <p className="text-[#FFF8E5]/80 text-sm">© 2026 PrayagrajVisit.in - All rights reserved</p>
+        <p className="text-[#FFF8E5]/80 text-sm">
+          © 2026 PrayagrajVisit.in - All rights reserved
+        </p>
       </div>
     </footer>
-  )
+  );
 }
