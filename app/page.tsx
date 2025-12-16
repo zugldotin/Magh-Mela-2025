@@ -14,7 +14,6 @@ import FlipboardTimer from "@/components/marketingPages/FlipboardCounter";
 import { ChevronDown } from "lucide-react";
 import EnrollmentModal from "@/components/EnrollmentModal";
 
-
 // Decorative ornament SVG component
 const DecorativeOrnament = ({ className = "", fill = "white" }) => (
   <svg
@@ -254,7 +253,8 @@ const VideoIcon = () => (
 const benefits = [
   {
     icon: "/atmanirbhar/bird.gif",
-    title: "<b>Local Prayagraj Team</b><br/>On-ground support during your visit",
+    title:
+      "<b>Local Prayagraj Team</b><br/>On-ground support during your visit",
   },
   {
     icon: "/atmanirbhar/cert.gif",
@@ -298,7 +298,6 @@ const journeyDays = [
   },
 ];
 
-
 // Statistics data
 const stats = [
   {
@@ -318,7 +317,6 @@ const stats = [
     title: "<b>Indian & Foreign</b><br/>Tourists Welcome",
   },
 ];
-
 
 // Guru photos
 const gurus = [
@@ -375,15 +373,13 @@ const gurus = [
 export default function Page() {
   const [isEnrollNowFormOpen, setIsEnrollNowFormOpen] = useState(false);
   const uiPrice = 10;
-const ctaText = "Book Your Magh Mela Slot";
-const activeDate = "Jan – Feb 2026";
-const activeTimeSlot = "Flexible Arrival Time";
+  const ctaText = "Book Your Magh Mela Slot";
+  const activeDate = "Jan – Feb 2026";
+  const activeTimeSlot = "Flexible Arrival Time";
 
   return (
     <div className="min-h-screen bg-[#FFF8E5]  mx-auto relative">
-
       <section className="bg-[#FFF8E5] pb-16 px-10 h-[800px] flex flex-col items-center relative">
-
         <div
           className={cn(
             "absolute inset-0 z-10 opacity-5",
@@ -392,7 +388,7 @@ const activeTimeSlot = "Flexible Arrival Time";
           )}
         />
 
-        <div className="absolute z-[12] bg-[radial-gradient(circle_at_center,_#ffffff50,_#ffffff0)] w-full !aspect-square rounded-full top-[50px]"/>
+        <div className="absolute z-[12] bg-[radial-gradient(circle_at_center,_#ffffff50,_#ffffff0)] w-full !aspect-square rounded-full top-[50px]" />
 
         <div className="max-w-md md:max-w-lg lg:max-w-xl mx-auto z-30">
           <div className="bg-astro-red  text-center py-2 px-5 rounded-b-2xl mb-6 mx-auto w-fit bg-[#761D14] text-white">
@@ -423,18 +419,17 @@ const activeTimeSlot = "Flexible Arrival Time";
 
           {/* Main Event Card */}
           <div className="w-full flex flex-col items-center justify-center relative z-10 ">
-          <Image
-            src={"/atmanirbhar/teachers.webp"}
-            alt=""
-            width={400}
-            height={400}
-            className="w-full max-w-[350px] h-auto z-10"
-          />
+            <Image
+              src={"/atmanirbhar/teachers.webp"}
+              alt=""
+              width={400}
+              height={400}
+              className="w-full max-w-[350px] h-auto z-10"
+            />
             <div className="bg-white rounded-lg shadow-lg p-4 place-self-center  w-full h-auto max-w-[350px]">
               <h3 className="text-astro-gray-dark text-xl font-bold text-center mb-4 font-roboto text-balance">
-                Experience Magh Mela 2026, Prayagraj
-Simple booking, trusted local service
-
+                Experience Magh Mela 2026, Prayagraj Simple booking, trusted
+                local service
               </h3>
 
               <div className="grid grid-cols-2 gap-4 mb-4">
@@ -482,12 +477,7 @@ Simple booking, trusted local service
 
               <div className="space-y mb-3 ">
                 <div className="bg-white rounded-lg p-3 px-0  shadow-sm flex items-center gap-3 ">
-
-                  <img
-                    src="/atmanirbhar/om.gif"
-                    alt=""
-                    className="w-12 h-12"
-                  />
+                  <img src="/atmanirbhar/om.gif" alt="" className="w-12 h-12" />
                   <div>
                     <h4 className="text-astro-gray-dark font-bold text-xs mb-1 font-poppins">
                       8 Days, 8 Gurus, 10+ Subjects
@@ -536,7 +526,6 @@ Simple booking, trusted local service
       </section>
       {/* Hero Section */}
       <div className="relative flex flex-col items-center justify-center  overflow-x-clip ">
-
         <div className="absolute bg-[#761D14] rounded-full w-[800px] aspect-square -top-24 z-0" />
 
         <div
@@ -549,9 +538,7 @@ Simple booking, trusted local service
 
         <section className="h-full flex flex-col justify-center items-center px-2 py-16 pb-8 relative overflow-hidden  bg-[#761D14] w-full ">
           <div className="max-w-md md:max-w-2xl lg:max-w-4xl mx-auto text-center   relative   z-[30]  pt-[150px] flex flex-col items-center justify-center">
-            
             <h1 className="text-white text-xl font-bold leading-tight mb-4 font-roboto pb-2 max-w-sm text-center">
-
               Why this event is unlike anything you've seen before ?
             </h1>
 
@@ -561,8 +548,8 @@ Simple booking, trusted local service
             />
 
             <p className="text-white/80 text-base  leading-normal mb-8 font-poppins mx-3">
-              A peaceful, spiritual and well-managed Magh Mela journey
-guided by trusted local experts.
+              A peaceful, spiritual and well-managed Magh Mela journey guided by
+              trusted local experts.
             </p>
 
             {/* Video placeholder */}
@@ -579,13 +566,12 @@ guided by trusted local experts.
                 allowFullScreen
                 className="z-[29] rounded-md"
               ></iframe>
-              <div className="absolute bottom-0 h-[46px]  left-0 right-0 w-full z-[30] "/>
-              <div className="absolute top-0 h-[52px] left-0 right-0 w-full z-[30] "/>
+              <div className="absolute bottom-0 h-[46px]  left-0 right-0 w-full z-[30] " />
+              <div className="absolute top-0 h-[52px] left-0 right-0 w-full z-[30] " />
             </div>
             <div className="w-full px-3">
               <Button
                 className="inline-flex items-center justify-center w-full !bg-white  font-bold text-lg py-6 px-8 rounded-xl !text-black  "
-
                 onClick={() => setIsEnrollNowFormOpen(true)}
               >
                 {ctaText ?? "Claim Your FREE Seat Now"}
@@ -604,9 +590,7 @@ guided by trusted local experts.
           )}
         />
         <div className="max-w-md  mx-auto text-center relative z-10">
-
           <h2 className="text-astro-primary text-xl  font-bold mb-4 font-roboto pt-8 relative z-[4] text-[#761D14]">
-
             Why You Should Not Miss This?
           </h2>
 
@@ -616,9 +600,9 @@ guided by trusted local experts.
           />
 
           <p className="leading-normal mb-5 font-poppins relative z-[4] text-[#787575]">
-Trusted local Prayagraj team helping pilgrims
+            Trusted local Prayagraj team helping pilgrims
             <br />
-experience Magh Mela safely and comfortably.
+            experience Magh Mela safely and comfortably.
           </p>
 
           <div className="grid grid-cols-2  gap-2 mb-2 relative z-[5]">
@@ -627,7 +611,11 @@ experience Magh Mela safely and comfortably.
                 key={index}
                 className="bg-white rounded-lg p-[14px] shadow-sm flex flex-col items-center text-center"
               >
-                <img src={benefit.icon} alt="" className="!w-[60px] !aspect-square mb-3" />
+                <img
+                  src={benefit.icon}
+                  alt=""
+                  className="!w-[60px] !aspect-square mb-3"
+                />
                 <p
                   className="text-astro-gray-dark text-[11.82px] font-semibold leading-tight font-poppins"
                   dangerouslySetInnerHTML={{ __html: benefit.title }}
@@ -651,7 +639,6 @@ experience Magh Mela safely and comfortably.
 
           <Button
             className="inline-flex items-center justify-center w-full !bg-[#761d14] font-bold text-lg py-6 px-8 rounded-xl !text-white z-[6] relative mb-5"
-
             onClick={() => setIsEnrollNowFormOpen(true)}
           >
             {ctaText ?? "Claim Your FREE Seat Now"}
@@ -712,16 +699,13 @@ experience Magh Mela safely and comfortably.
           </div>
 
           <div className="mt-5 z-[30]">
-
             <DecorativeOrnament
               className="w-72 h-4 mx-auto mb-4 "
               fill="white"
             />
 
             <Button
-
               className="inline-flex items-center justify-center w-full !bg-white !text-black font-bold text-lg py-6 px-8 rounded-xl   z-[26]"
-
               onClick={() => setIsEnrollNowFormOpen(true)}
             >
               {ctaText ?? "Claim Your FREE Seat Now"}
@@ -740,9 +724,7 @@ experience Magh Mela safely and comfortably.
           )}
         />
         <div className="max-w-md mx-auto text-center">
-
           <h2 className="text-astro-primary text-xl  font-bold mb-4 font-roboto z-10 relative text-[#761d14]">
-
             Trusted by Over 1 Million Spiritual Learners
           </h2>
 
@@ -753,11 +735,9 @@ experience Magh Mela safely and comfortably.
 
           <p className="text-[#787575] leading-normal mb-8 font-poppins z-10 relative">
             India’s leading platform for practical astrology and occult learning
-
-            — trusted by thousands. <br/> Gain practical knowledge, build confidence,
-
-            and turn their passion for astrology into a respected skill — all
-            from their home.
+            — trusted by thousands. <br /> Gain practical knowledge, build
+            confidence, and turn their passion for astrology into a respected
+            skill — all from their home.
           </p>
 
           {/* Stats Grid */}
@@ -767,7 +747,11 @@ experience Magh Mela safely and comfortably.
                 key={index}
                 className="bg-white rounded-lg p-4 shadow-sm flex flex-col items-center text-center"
               >
-                <img src={stat.icon} alt="" className="!w-[60px] !aspect-square mb-3" />
+                <img
+                  src={stat.icon}
+                  alt=""
+                  className="!w-[60px] !aspect-square mb-3"
+                />
                 <p
                   className="text-astro-gray-dark text-xs font-semibold leading-tight font-poppins"
                   dangerouslySetInnerHTML={{ __html: stat.title }}
@@ -789,9 +773,7 @@ experience Magh Mela safely and comfortably.
           </div>
 
           <Button
-
             className="inline-flex items-center justify-center w-full  !text-white font-bold text-lg py-6 px-8 rounded-xl  !bg-[#761D14] z-10 relative"
-
             onClick={() => setIsEnrollNowFormOpen(true)}
           >
             {ctaText ?? "Claim Your FREE Seat Now"}
@@ -847,7 +829,6 @@ experience Magh Mela safely and comfortably.
 
           <Button
             className="inline-flex items-center justify-center w-full !bg-white !text-black font-bold text-lg py-6 px-8 rounded-xl  "
-
             onClick={() => setIsEnrollNowFormOpen(true)}
           >
             {ctaText ?? "Claim Your FREE Seat Now"}
@@ -857,7 +838,6 @@ experience Magh Mela safely and comfortably.
 
       {/* Final CTA Section */}
       <section className="bg-white py-2 px-3  fixed bottom-0 left-0 right-0 z-40 max-w-md mx-auto">
-
         <div className="absolute w-full h-full bg-gradient-to-r from-[#FF682070] via-white to-[#046A3875] left-0 bottom-0 flex" />
         <div className="absolute w-full h-[70%] bg-gradient-to-b from-white via-white/80 to-white/10 left-0 top-0 flex z-10" />
 
@@ -865,7 +845,6 @@ experience Magh Mela safely and comfortably.
           <FlipboardTimer startMinutes={7} />
           <Button
             className="inline-flex items-center justify-center w-full  !text-white font-bold text-lg py-6 px-8 rounded-xl   !bg-[#761D14] "
-
             onClick={() => setIsEnrollNowFormOpen(true)}
           >
             {ctaText ?? "Claim Your FREE Seat Now"}
@@ -932,15 +911,15 @@ const FaqAccordionItem: React.FC<{ item: FaqItem }> = ({ item }) => {
           {item.question}
         </span>
         <ChevronDown
-          className={`transform transition-transform duration-300 ${isOpen ? "rotate-180" : ""
-            }`}
+          className={`transform transition-transform duration-300 ${
+            isOpen ? "rotate-180" : ""
+          }`}
         />
       </button>
       <div
         className={`overflow-hidden transition-all duration-300 text-sm bg-white rounded-lg px-4 ${
           isOpen ? " max-h-96 py-2 " : " max-h-0"
         }`}
-
       >
         <p className="text-gray-600">{item.answer}</p>
       </div>
@@ -979,34 +958,32 @@ const faqData: FaqItem[] = [
   },
 ];
 
-
 const testimonials = [
-    {
-      src: "/atmanirbhar/testimonial1.webp",
-      alt: "Testimonial",
-    },
-    {
-      src: "/atmanirbhar/testimonial2.webp",
-      alt: "Testimonial",
-    },
-    {
-      src: "/atmanirbhar/testimonial3.webp",
-      alt: "Testimonial",
-    },
-    {
-      src: "/atmanirbhar/testimonial4.webp",
-      alt: "Testimonial",
-    },
-    {
-      src: "/atmanirbhar/testimonial5.webp",
-      alt: "Testimonial",
-    },
-    {
-      src: "/atmanirbhar/testimonial6.webp",
-      alt: "Testimonial",
-    },
-  ];
-
+  {
+    src: "/atmanirbhar/testimonial1.webp",
+    alt: "Testimonial",
+  },
+  {
+    src: "/atmanirbhar/testimonial2.webp",
+    alt: "Testimonial",
+  },
+  {
+    src: "/atmanirbhar/testimonial3.webp",
+    alt: "Testimonial",
+  },
+  {
+    src: "/atmanirbhar/testimonial4.webp",
+    alt: "Testimonial",
+  },
+  {
+    src: "/atmanirbhar/testimonial5.webp",
+    alt: "Testimonial",
+  },
+  {
+    src: "/atmanirbhar/testimonial6.webp",
+    alt: "Testimonial",
+  },
+];
 
 function CaraouselComp() {
   const [api, setApi] = useState<any>();
@@ -1031,8 +1008,6 @@ function CaraouselComp() {
       setCurrent(api.selectedScrollSnap());
     });
   }, [api]);
-
-
 
   return (
     <div className="w-[75%] aspect-[9/16] max-w-sm mx-auto z-[26] relative">
@@ -1070,11 +1045,9 @@ function CaraouselComp() {
         {testimonials.map((_, index) => (
           <div
             key={index}
-
             className={`!h-2 !aspect-square !rounded-full transition-colors ${
               index === current ? "bg-red-800" : "bg-gray-300"
             }`}
-
             onClick={() => api?.scrollTo(index)}
           />
         ))}
