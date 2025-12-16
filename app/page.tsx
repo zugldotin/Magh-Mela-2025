@@ -12,6 +12,7 @@ import {
 import { cn } from "@/lib/utils";
 import FlipboardTimer from "@/components/marketingPages/FlipboardCounter";
 import { ChevronDown } from "lucide-react";
+import EnrollmentModal from "@/components/EnrollmentModal";
 
 
 // Decorative ornament SVG component
@@ -372,7 +373,7 @@ const gurus = [
 ];
 
 export default function Page() {
-  const [, setIsEnrollNowFormOpen] = useState(false);
+  const [isEnrollNowFormOpen, setIsEnrollNowFormOpen] = useState(false);
   const uiPrice = 10;
 const ctaText = "Book Your Magh Mela Slot";
 const activeDate = "Jan – Feb 2026";
@@ -908,6 +909,11 @@ experience Magh Mela safely and comfortably.
           ))}
         </div>
       </section>
+
+      <EnrollmentModal
+        open={isEnrollNowFormOpen}
+        onOpenChange={setIsEnrollNowFormOpen}
+      />
     </div>
   );
 }
