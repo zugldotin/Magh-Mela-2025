@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,14 +16,24 @@ import {
   ChevronRight,
   Eye,
   Trash2,
+  MapPin,
+  Phone,
+  Calendar,
+  UsersRound,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Lead {
   id: string;
   name: string;
-  email: string;
+  place_city: string;
   phone: string;
+  whatsapp: string;
+  emergency_contact: string;
+  number_of_people: number;
+  journey_start_date: string;
+  arrival_date: string;
+  number_of_days: number;
   amount: number;
   payment_status: "pending" | "completed" | "failed";
   order_id: string;
@@ -54,12 +64,7 @@ export default function AdminDashboard() {
   const [totalPages, setTotalPages] = useState(1);
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
 
-  useEffect(() => {
-    fetchStats();
-    fetchLeads();
-  }, [page, statusFilter]);
-
-  const fetchStats = async () => {
+  const fetchStats = useCallback(async () => {
     try {
       const res = await fetch("/api/admin/stats");
       if (res.status === 401) {
@@ -71,9 +76,9 @@ export default function AdminDashboard() {
     } catch (error) {
       console.error("Failed to fetch stats:", error);
     }
-  };
+  }, [router]);
 
-  const fetchLeads = async () => {
+  const fetchLeads = useCallback(async () => {
     setLoading(true);
     try {
       const params = new URLSearchParams({
@@ -96,7 +101,12 @@ export default function AdminDashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [page, statusFilter, search, router]);
+
+  useEffect(() => {
+    fetchStats();
+    fetchLeads();
+  }, [fetchStats, fetchLeads]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -121,6 +131,14 @@ export default function AdminDashboard() {
   };
 
   const formatDate = (date: string) => {
+    return new Date(date).toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  };
+
+  const formatDateTime = (date: string) => {
     return new Date(date).toLocaleDateString("en-IN", {
       day: "2-digit",
       month: "short",
@@ -225,7 +243,7 @@ export default function AdminDashboard() {
               <div className="relative flex-1 max-w-md">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input
-                  placeholder="Search by name, email, or phone..."
+                  placeholder="Search by name, phone, or city..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   className="pl-10"
@@ -236,11 +254,12 @@ export default function AdminDashboard() {
               </Button>
             </form>
 
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap">
               {["all", "completed", "pending", "failed"].map((status) => (
                 <Button
                   key={status}
                   variant={statusFilter === status ? "default" : "outline"}
+                  size="sm"
                   className={cn(
                     "capitalize",
                     statusFilter === status && "!bg-[#761D14]"
@@ -271,22 +290,19 @@ export default function AdminDashboard() {
                   <thead className="bg-gray-50 text-left">
                     <tr>
                       <th className="px-4 py-3 text-sm font-medium text-gray-600">
-                        Name
+                        Name & City
                       </th>
                       <th className="px-4 py-3 text-sm font-medium text-gray-600">
                         Contact
                       </th>
                       <th className="px-4 py-3 text-sm font-medium text-gray-600">
+                        Travel Info
+                      </th>
+                      <th className="px-4 py-3 text-sm font-medium text-gray-600">
                         Plan
                       </th>
                       <th className="px-4 py-3 text-sm font-medium text-gray-600">
-                        Amount
-                      </th>
-                      <th className="px-4 py-3 text-sm font-medium text-gray-600">
                         Status
-                      </th>
-                      <th className="px-4 py-3 text-sm font-medium text-gray-600">
-                        Date
                       </th>
                       <th className="px-4 py-3 text-sm font-medium text-gray-600">
                         Actions
@@ -297,27 +313,44 @@ export default function AdminDashboard() {
                     {leads.map((lead) => (
                       <tr key={lead.id} className="hover:bg-gray-50">
                         <td className="px-4 py-3">
-                          <p className="font-medium text-gray-800">
-                            {lead.name}
+                          <p className="font-medium text-gray-800">{lead.name}</p>
+                          <p className="text-sm text-gray-500 flex items-center gap-1">
+                            <MapPin className="h-3 w-3" />
+                            {lead.place_city}
                           </p>
                         </td>
                         <td className="px-4 py-3">
-                          <p className="text-sm text-gray-600">{lead.email}</p>
-                          <p className="text-sm text-gray-500">{lead.phone}</p>
+                          <p className="text-sm text-gray-600 flex items-center gap-1">
+                            <Phone className="h-3 w-3" />
+                            {lead.phone}
+                          </p>
+                          <p className="text-sm text-green-600">
+                            WA: {lead.whatsapp}
+                          </p>
                         </td>
                         <td className="px-4 py-3">
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-gray-600 flex items-center gap-1">
+                            <UsersRound className="h-3 w-3" />
+                            {lead.number_of_people} people
+                          </p>
+                          <p className="text-sm text-gray-500 flex items-center gap-1">
+                            <Calendar className="h-3 w-3" />
+                            {lead.number_of_days} days
+                          </p>
+                        </td>
+                        <td className="px-4 py-3">
+                          <p className="text-sm font-medium text-gray-800">
                             {lead.plans?.name || "N/A"}
                           </p>
-                        </td>
-                        <td className="px-4 py-3">
-                          <p className="font-medium">₹{lead.amount}</p>
+                          <p className="text-sm font-bold text-[#761D14]">
+                            ₹{lead.amount}
+                          </p>
                         </td>
                         <td className="px-4 py-3">
                           {getStatusBadge(lead.payment_status)}
-                        </td>
-                        <td className="px-4 py-3 text-sm text-gray-500">
-                          {formatDate(lead.created_at)}
+                          <p className="text-xs text-gray-400 mt-1">
+                            {formatDate(lead.created_at)}
+                          </p>
                         </td>
                         <td className="px-4 py-3">
                           <div className="flex gap-2">
@@ -325,6 +358,7 @@ export default function AdminDashboard() {
                               variant="ghost"
                               size="icon-sm"
                               onClick={() => setSelectedLead(lead)}
+                              title="View Details"
                             >
                               <Eye className="h-4 w-4" />
                             </Button>
@@ -333,6 +367,7 @@ export default function AdminDashboard() {
                               size="icon-sm"
                               className="text-red-500 hover:text-red-700"
                               onClick={() => handleDeleteLead(lead.id)}
+                              title="Delete"
                             >
                               <Trash2 className="h-4 w-4" />
                             </Button>
@@ -374,62 +409,124 @@ export default function AdminDashboard() {
         </div>
       </main>
 
+      {/* Lead Details Modal */}
       {selectedLead && (
         <div
           className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
           onClick={() => setSelectedLead(null)}
         >
           <div
-            className="bg-white rounded-xl max-w-md w-full p-6"
+            className="bg-white rounded-xl max-w-lg w-full p-6 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <h2 className="text-xl font-bold mb-4">Lead Details</h2>
-            <div className="space-y-3">
-              <div>
-                <p className="text-sm text-gray-500">Name</p>
-                <p className="font-medium">{selectedLead.name}</p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Email</p>
-                <p className="font-medium">{selectedLead.email}</p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Phone</p>
-                <p className="font-medium">{selectedLead.phone}</p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Order ID</p>
-                <p className="font-medium font-mono">{selectedLead.order_id}</p>
-              </div>
-              {selectedLead.payment_id && (
+            <h2 className="text-xl font-bold mb-4 text-[#761D14]">Lead Details</h2>
+            
+            {/* Personal Info */}
+            <div className="mb-4">
+              <h3 className="font-semibold text-gray-700 mb-2 border-b pb-1">Personal Information</h3>
+              <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <p className="text-sm text-gray-500">Payment ID</p>
-                  <p className="font-medium font-mono">
-                    {selectedLead.payment_id}
-                  </p>
+                  <p className="text-xs text-gray-500">Name</p>
+                  <p className="font-medium">{selectedLead.name}</p>
                 </div>
-              )}
-              <div>
-                <p className="text-sm text-gray-500">Amount</p>
-                <p className="font-medium">₹{selectedLead.amount}</p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Status</p>
-                {getStatusBadge(selectedLead.payment_status)}
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Created At</p>
-                <p className="font-medium">
-                  {formatDate(selectedLead.created_at)}
-                </p>
+                <div>
+                  <p className="text-xs text-gray-500">City</p>
+                  <p className="font-medium">{selectedLead.place_city}</p>
+                </div>
               </div>
             </div>
-            <Button
-              className="w-full mt-6 !bg-[#761D14]"
-              onClick={() => setSelectedLead(null)}
-            >
-              Close
-            </Button>
+
+            {/* Contact Info */}
+            <div className="mb-4">
+              <h3 className="font-semibold text-gray-700 mb-2 border-b pb-1">Contact Details</h3>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <p className="text-xs text-gray-500">Phone</p>
+                  <p className="font-medium">{selectedLead.phone}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-500">WhatsApp</p>
+                  <p className="font-medium text-green-600">{selectedLead.whatsapp}</p>
+                </div>
+                <div className="col-span-2">
+                  <p className="text-xs text-gray-500">Emergency Contact</p>
+                  <p className="font-medium text-red-600">{selectedLead.emergency_contact}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Travel Info */}
+            <div className="mb-4">
+              <h3 className="font-semibold text-gray-700 mb-2 border-b pb-1">Travel Information</h3>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <p className="text-xs text-gray-500">Number of People</p>
+                  <p className="font-medium">{selectedLead.number_of_people}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-500">Stay Duration</p>
+                  <p className="font-medium">{selectedLead.number_of_days} days</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-500">Journey Start Date</p>
+                  <p className="font-medium">{formatDate(selectedLead.journey_start_date)}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-500">Arrival in Prayagraj</p>
+                  <p className="font-medium">{formatDate(selectedLead.arrival_date)}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Payment Info */}
+            <div className="mb-4">
+              <h3 className="font-semibold text-gray-700 mb-2 border-b pb-1">Payment Information</h3>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <p className="text-xs text-gray-500">Plan</p>
+                  <p className="font-medium">{selectedLead.plans?.name || "N/A"}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-500">Amount</p>
+                  <p className="font-bold text-[#761D14]">₹{selectedLead.amount}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-500">Order ID</p>
+                  <p className="font-mono text-sm">{selectedLead.order_id}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-500">Status</p>
+                  {getStatusBadge(selectedLead.payment_status)}
+                </div>
+                {selectedLead.payment_id && (
+                  <div className="col-span-2">
+                    <p className="text-xs text-gray-500">Payment ID</p>
+                    <p className="font-mono text-sm">{selectedLead.payment_id}</p>
+                  </div>
+                )}
+                <div className="col-span-2">
+                  <p className="text-xs text-gray-500">Booking Date</p>
+                  <p className="font-medium">{formatDateTime(selectedLead.created_at)}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-2 mt-6">
+              <Button
+                className="flex-1 !bg-green-600 hover:!bg-green-700"
+                onClick={() => {
+                  window.open(`https://wa.me/91${selectedLead.whatsapp}`, "_blank");
+                }}
+              >
+                WhatsApp
+              </Button>
+              <Button
+                className="flex-1 !bg-[#761D14]"
+                onClick={() => setSelectedLead(null)}
+              >
+                Close
+              </Button>
+            </div>
           </div>
         </div>
       )}

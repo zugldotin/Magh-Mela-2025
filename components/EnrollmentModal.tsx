@@ -11,8 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
-import { Check, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 interface Plan {
   id: string;
@@ -77,15 +76,21 @@ export default function EnrollmentModal({
   open,
   onOpenChange,
 }: EnrollmentModalProps) {
-  const [step, setStep] = useState<"plan" | "form" | "payment">("plan");
   const [plans, setPlans] = useState<Plan[]>([]);
-  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
+  const [selectedPlanId, setSelectedPlanId] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [paymentProcessing, setPaymentProcessing] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
+    placeCity: "",
     phone: "",
+    whatsapp: "",
+    emergencyContact: "",
+    numberOfPeople: "1",
+    journeyStartDate: "",
+    arrivalDate: "",
+    numberOfDays: "1",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -100,8 +105,9 @@ export default function EnrollmentModal({
     try {
       const res = await fetch("/api/plans");
       const data = await res.json();
-      if (data.plans) {
+      if (data.plans && data.plans.length > 0) {
         setPlans(data.plans);
+        setSelectedPlanId(data.plans[0].id);
       }
     } catch (error) {
       console.error("Failed to fetch plans:", error);
@@ -110,28 +116,47 @@ export default function EnrollmentModal({
     }
   };
 
+  const selectedPlan = plans.find((p) => p.id === selectedPlanId);
+
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
+    
     if (!formData.name.trim()) {
       newErrors.name = "Name is required";
     }
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Invalid email address";
+    if (!formData.placeCity.trim()) {
+      newErrors.placeCity = "Place/City is required";
     }
     if (!formData.phone.trim()) {
       newErrors.phone = "Phone number is required";
     } else if (!/^[0-9]{10}$/.test(formData.phone.replace(/\s/g, ""))) {
       newErrors.phone = "Invalid phone number (10 digits required)";
     }
+    if (!formData.whatsapp.trim()) {
+      newErrors.whatsapp = "WhatsApp number is required";
+    } else if (!/^[0-9]{10}$/.test(formData.whatsapp.replace(/\s/g, ""))) {
+      newErrors.whatsapp = "Invalid WhatsApp number (10 digits required)";
+    }
+    if (!formData.emergencyContact.trim()) {
+      newErrors.emergencyContact = "Emergency contact is required";
+    } else if (!/^[0-9]{10}$/.test(formData.emergencyContact.replace(/\s/g, ""))) {
+      newErrors.emergencyContact = "Invalid number (10 digits required)";
+    }
+    if (!formData.numberOfPeople || parseInt(formData.numberOfPeople) < 1) {
+      newErrors.numberOfPeople = "At least 1 person required";
+    }
+    if (!formData.journeyStartDate) {
+      newErrors.journeyStartDate = "Journey start date is required";
+    }
+    if (!formData.arrivalDate) {
+      newErrors.arrivalDate = "Arrival date is required";
+    }
+    if (!formData.numberOfDays || parseInt(formData.numberOfDays) < 1) {
+      newErrors.numberOfDays = "At least 1 day required";
+    }
+    
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
-
-  const handlePlanSelect = (plan: Plan) => {
-    setSelectedPlan(plan);
-    setStep("form");
   };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -144,7 +169,15 @@ export default function EnrollmentModal({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...formData,
+          name: formData.name,
+          place_city: formData.placeCity,
+          phone: formData.phone,
+          whatsapp: formData.whatsapp,
+          emergency_contact: formData.emergencyContact,
+          number_of_people: parseInt(formData.numberOfPeople),
+          journey_start_date: formData.journeyStartDate,
+          arrival_date: formData.arrivalDate,
+          number_of_days: parseInt(formData.numberOfDays),
           plan_id: selectedPlan.id,
           amount: selectedPlan.price,
         }),
@@ -156,11 +189,11 @@ export default function EnrollmentModal({
         initiatePayment(data.lead.id, data.lead.order_id);
       } else {
         alert(data.error || "Failed to create booking. Please try again.");
+        setSubmitting(false);
       }
     } catch (error) {
       console.error("Form submission error:", error);
       alert("Something went wrong. Please try again.");
-    } finally {
       setSubmitting(false);
     }
   };
@@ -168,7 +201,7 @@ export default function EnrollmentModal({
   const initiatePayment = async (leadId: string, orderId: string) => {
     if (!selectedPlan) return;
 
-    setStep("payment");
+    setPaymentProcessing(true);
 
     try {
       const res = await fetch("/api/payment/create", {
@@ -179,15 +212,14 @@ export default function EnrollmentModal({
           orderId,
           amount: selectedPlan.price,
           customerName: formData.name,
-          customerEmail: formData.email,
-          customerPhone: formData.phone,
+          customerEmail: `${formData.phone}@maghmela.com`,
+          customerPhone: formData.whatsapp,
         }),
       });
 
       const data = await res.json();
 
       if (data.success && data.payment_session_id) {
-        // Load Cashfree Drop SDK and open modal
         const existingScript = document.querySelector('script[src*="cashfree"]');
         if (existingScript) existingScript.remove();
 
@@ -208,7 +240,8 @@ export default function EnrollmentModal({
             if (result.error) {
               console.error("Payment error:", result.error);
               alert(result.error.message || "Payment failed. Please try again.");
-              setStep("form");
+              setPaymentProcessing(false);
+              setSubmitting(false);
             }
             if (result.redirect) {
               console.log("Payment redirect");
@@ -220,186 +253,242 @@ export default function EnrollmentModal({
           } catch (err) {
             console.error("Cashfree checkout error:", err);
             alert("Payment failed. Please try again.");
-            setStep("form");
+            setPaymentProcessing(false);
+            setSubmitting(false);
           }
         };
         script.onerror = () => {
           alert("Failed to load payment gateway. Please try again.");
-          setStep("form");
+          setPaymentProcessing(false);
+          setSubmitting(false);
         };
         document.head.appendChild(script);
       } else {
         alert(data.error || "Failed to initiate payment. Please try again.");
-        setStep("form");
+        setPaymentProcessing(false);
+        setSubmitting(false);
       }
     } catch (error) {
       console.error("Payment initiation error:", error);
       alert("Failed to initiate payment. Please try again.");
-      setStep("form");
+      setPaymentProcessing(false);
+      setSubmitting(false);
     }
   };
 
   const handleClose = () => {
+    if (paymentProcessing) return;
     onOpenChange(false);
     setTimeout(() => {
-      setStep("plan");
-      setSelectedPlan(null);
-      setFormData({ name: "", email: "", phone: "" });
+      setFormData({
+        name: "",
+        placeCity: "",
+        phone: "",
+        whatsapp: "",
+        emergencyContact: "",
+        numberOfPeople: "1",
+        journeyStartDate: "",
+        arrivalDate: "",
+        numberOfDays: "1",
+      });
       setErrors({});
+      setSubmitting(false);
+      setPaymentProcessing(false);
     }, 200);
   };
 
+  const handleInputChange = (field: string, value: string) => {
+    setFormData({ ...formData, [field]: value });
+    if (errors[field]) {
+      setErrors({ ...errors, [field]: "" });
+    }
+  };
+
+  if (paymentProcessing) {
+    return (
+      <Dialog open={open} onOpenChange={() => {}}>
+        <DialogContent className="p-0 overflow-hidden">
+          <div className="bg-[#761D14] p-4 text-center">
+            <DialogHeader>
+              <DialogTitle className="text-white text-lg">
+                Processing Payment
+              </DialogTitle>
+            </DialogHeader>
+          </div>
+          <div className="p-8 text-center">
+            <Loader2 className="h-12 w-12 animate-spin text-[#761D14] mx-auto mb-4" />
+            <p className="text-gray-600">Please complete the payment...</p>
+            <p className="text-sm text-gray-500 mt-2">Do not close this window</p>
+          </div>
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent onClose={handleClose} className="p-0 overflow-hidden">
+      <DialogContent onClose={handleClose} className="p-0 overflow-hidden max-h-[90vh]">
         <div className="bg-[#761D14] p-4 text-center">
           <DialogHeader>
             <DialogTitle className="text-white text-lg">
-              {step === "plan" && "Choose Your Plan"}
-              {step === "form" && "Complete Your Booking"}
-              {step === "payment" && "Processing Payment"}
+              Start Your Magh Mela Journey
             </DialogTitle>
             <DialogDescription className="text-white/80">
-              {step === "plan" && "Select a package that suits your needs"}
-              {step === "form" && "Fill in your details to proceed"}
-              {step === "payment" && "Please wait while we process your payment"}
+              Fill in your details to book your slot
             </DialogDescription>
           </DialogHeader>
-          <DecorativeOrnament
-            className="w-48 h-3 mx-auto mt-3"
-            fill="white"
-          />
+          <DecorativeOrnament className="w-48 h-3 mx-auto mt-3" fill="white" />
         </div>
 
-        <div className="p-5">
-          {step === "plan" && (
-            <div className="space-y-3">
-              {loading ? (
-                <div className="flex justify-center py-8">
-                  <Loader2 className="h-8 w-8 animate-spin text-[#761D14]" />
-                </div>
-              ) : (
-                plans.map((plan) => (
-                  <div
-                    key={plan.id}
-                    onClick={() => handlePlanSelect(plan)}
-                    className={cn(
-                      "border-2 rounded-xl p-4 cursor-pointer transition-all hover:border-[#761D14] hover:shadow-md",
-                      selectedPlan?.id === plan.id
-                        ? "border-[#761D14] bg-[#FFF8E5]"
-                        : "border-gray-200"
-                    )}
-                  >
-                    <div className="flex justify-between items-start mb-2">
-                      <div>
-                        <h3 className="font-bold text-lg text-gray-800">
-                          {plan.name}
-                        </h3>
-                        <p className="text-sm text-gray-500">{plan.description}</p>
-                      </div>
-                      <div className="text-right">
-                        <span className="text-2xl font-bold text-[#761D14]">
-                          ₹{plan.price}
-                        </span>
-                      </div>
-                    </div>
-                    <ul className="space-y-1 mt-3">
-                      {plan.features?.map((feature, index) => (
-                        <li
-                          key={index}
-                          className="text-sm text-gray-600 flex items-center gap-2"
-                        >
-                          <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                    <Button
-                      className="w-full mt-4 !bg-[#761D14] !text-white"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handlePlanSelect(plan);
-                      }}
-                    >
-                      Select {plan.name} Plan
-                    </Button>
-                  </div>
-                ))
-              )}
+        <div className="p-5 overflow-y-auto max-h-[calc(90vh-120px)]">
+          {loading ? (
+            <div className="flex justify-center py-8">
+              <Loader2 className="h-8 w-8 animate-spin text-[#761D14]" />
             </div>
-          )}
-
-          {step === "form" && selectedPlan && (
+          ) : (
             <form onSubmit={handleFormSubmit} className="space-y-4">
-              <div className="bg-[#FFF8E5] rounded-lg p-3 mb-4">
-                <div className="flex justify-between items-center">
-                  <span className="font-medium text-gray-700">
-                    {selectedPlan.name} Plan
-                  </span>
-                  <span className="font-bold text-[#761D14]">
-                    ₹{selectedPlan.price}
-                  </span>
+              {/* Plan Selection */}
+              <div className="space-y-2">
+                <Label>Select Plan</Label>
+                <div className="flex gap-2">
+                  {plans.map((plan) => (
+                    <button
+                      key={plan.id}
+                      type="button"
+                      onClick={() => setSelectedPlanId(plan.id)}
+                      className={`flex-1 p-3 rounded-lg border-2 transition-all ${
+                        selectedPlanId === plan.id
+                          ? "border-[#761D14] bg-[#FFF8E5]"
+                          : "border-gray-200 hover:border-gray-300"
+                      }`}
+                    >
+                      <div className="font-bold text-gray-800">{plan.name}</div>
+                      <div className="text-lg font-bold text-[#761D14]">₹{plan.price}</div>
+                    </button>
+                  ))}
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setStep("plan")}
-                  className="text-sm text-[#761D14] underline mt-1"
-                >
-                  Change plan
-                </button>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
+              {/* Main Person Name */}
+              <div className="space-y-1">
+                <Label htmlFor="name">Main Person Name *</Label>
                 <Input
                   id="name"
-                  placeholder="Enter your full name"
+                  placeholder="Enter full name"
                   value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
+                  onChange={(e) => handleInputChange("name", e.target.value)}
                 />
-                {errors.name && (
-                  <p className="text-sm text-red-500">{errors.name}</p>
-                )}
+                {errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
+              {/* Place / City */}
+              <div className="space-y-1">
+                <Label htmlFor="placeCity">Place / City *</Label>
                 <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
+                  id="placeCity"
+                  placeholder="Enter your city"
+                  value={formData.placeCity}
+                  onChange={(e) => handleInputChange("placeCity", e.target.value)}
                 />
-                {errors.email && (
-                  <p className="text-sm text-red-500">{errors.email}</p>
-                )}
+                {errors.placeCity && <p className="text-xs text-red-500">{errors.placeCity}</p>}
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="phone">Phone Number</Label>
+              {/* Phone Numbers Row */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <Label htmlFor="phone">Phone Number *</Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    placeholder="10 digits"
+                    value={formData.phone}
+                    onChange={(e) => handleInputChange("phone", e.target.value)}
+                  />
+                  {errors.phone && <p className="text-xs text-red-500">{errors.phone}</p>}
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor="whatsapp">WhatsApp Number *</Label>
+                  <Input
+                    id="whatsapp"
+                    type="tel"
+                    placeholder="10 digits"
+                    value={formData.whatsapp}
+                    onChange={(e) => handleInputChange("whatsapp", e.target.value)}
+                  />
+                  {errors.whatsapp && <p className="text-xs text-red-500">{errors.whatsapp}</p>}
+                </div>
+              </div>
+
+              {/* Emergency Contact */}
+              <div className="space-y-1">
+                <Label htmlFor="emergencyContact">Emergency Contact *</Label>
                 <Input
-                  id="phone"
+                  id="emergencyContact"
                   type="tel"
-                  placeholder="10-digit phone number"
-                  value={formData.phone}
-                  onChange={(e) =>
-                    setFormData({ ...formData, phone: e.target.value })
-                  }
+                  placeholder="10 digit emergency number"
+                  value={formData.emergencyContact}
+                  onChange={(e) => handleInputChange("emergencyContact", e.target.value)}
                 />
-                {errors.phone && (
-                  <p className="text-sm text-red-500">{errors.phone}</p>
-                )}
+                {errors.emergencyContact && <p className="text-xs text-red-500">{errors.emergencyContact}</p>}
               </div>
 
+              {/* Number of People */}
+              <div className="space-y-1">
+                <Label htmlFor="numberOfPeople">Number of People *</Label>
+                <Input
+                  id="numberOfPeople"
+                  type="number"
+                  min="1"
+                  placeholder="1"
+                  value={formData.numberOfPeople}
+                  onChange={(e) => handleInputChange("numberOfPeople", e.target.value)}
+                />
+                {errors.numberOfPeople && <p className="text-xs text-red-500">{errors.numberOfPeople}</p>}
+              </div>
+
+              {/* Dates Row */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <Label htmlFor="journeyStartDate">Journey Start Date *</Label>
+                  <Input
+                    id="journeyStartDate"
+                    type="date"
+                    value={formData.journeyStartDate}
+                    onChange={(e) => handleInputChange("journeyStartDate", e.target.value)}
+                  />
+                  {errors.journeyStartDate && <p className="text-xs text-red-500">{errors.journeyStartDate}</p>}
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor="arrivalDate">Arrival in Prayagraj *</Label>
+                  <Input
+                    id="arrivalDate"
+                    type="date"
+                    value={formData.arrivalDate}
+                    onChange={(e) => handleInputChange("arrivalDate", e.target.value)}
+                  />
+                  {errors.arrivalDate && <p className="text-xs text-red-500">{errors.arrivalDate}</p>}
+                </div>
+              </div>
+
+              {/* Number of Days */}
+              <div className="space-y-1">
+                <Label htmlFor="numberOfDays">Number of Days Stay *</Label>
+                <Input
+                  id="numberOfDays"
+                  type="number"
+                  min="1"
+                  placeholder="1"
+                  value={formData.numberOfDays}
+                  onChange={(e) => handleInputChange("numberOfDays", e.target.value)}
+                />
+                {errors.numberOfDays && <p className="text-xs text-red-500">{errors.numberOfDays}</p>}
+              </div>
+
+              {/* Submit Button */}
               <Button
                 type="submit"
-                className="w-full !bg-[#761D14] !text-white py-6"
-                disabled={submitting}
+                className="w-full !bg-[#761D14] !text-white py-6 mt-4"
+                disabled={submitting || !selectedPlan}
               >
                 {submitting ? (
                   <>
@@ -407,22 +496,10 @@ export default function EnrollmentModal({
                     Processing...
                   </>
                 ) : (
-                  `Pay ₹${selectedPlan.price} & Book Slot`
+                  `Pay ₹${selectedPlan?.price || 0} & Book Slot`
                 )}
               </Button>
             </form>
-          )}
-
-          {step === "payment" && (
-            <div className="text-center py-8">
-              <Loader2 className="h-12 w-12 animate-spin text-[#761D14] mx-auto mb-4" />
-              <p className="text-gray-600">
-                Redirecting to payment gateway...
-              </p>
-              <p className="text-sm text-gray-500 mt-2">
-                Please do not close this window
-              </p>
-            </div>
           )}
         </div>
       </DialogContent>

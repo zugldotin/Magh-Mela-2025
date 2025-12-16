@@ -10,9 +10,33 @@ function generateOrderId(): string {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, plan_id, amount } = body;
+    const {
+      name,
+      place_city,
+      phone,
+      whatsapp,
+      emergency_contact,
+      number_of_people,
+      journey_start_date,
+      arrival_date,
+      number_of_days,
+      plan_id,
+      amount,
+    } = body;
 
-    if (!name || !email || !phone || !plan_id || !amount) {
+    if (
+      !name ||
+      !place_city ||
+      !phone ||
+      !whatsapp ||
+      !emergency_contact ||
+      !number_of_people ||
+      !journey_start_date ||
+      !arrival_date ||
+      !number_of_days ||
+      !plan_id ||
+      !amount
+    ) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
@@ -25,8 +49,14 @@ export async function POST(request: NextRequest) {
       .from("leads")
       .insert({
         name,
-        email,
+        place_city,
         phone,
+        whatsapp,
+        emergency_contact,
+        number_of_people,
+        journey_start_date,
+        arrival_date,
+        number_of_days,
         plan_id,
         amount,
         order_id: orderId,

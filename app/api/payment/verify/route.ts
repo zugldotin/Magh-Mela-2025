@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
+import { sendPaymentWhatsApp } from "@/lib/whatsapp";
 import crypto from "crypto";
 
 const CASHFREE_SECRET_KEY = process.env.CASHFREE_SECRET_KEY;
@@ -58,6 +59,13 @@ export async function POST(request: NextRequest) {
     const paymentStatus =
       txStatus === "SUCCESS" ? "completed" : txStatus === "FAILED" ? "failed" : "pending";
 
+    // Get lead details for WhatsApp notification
+    const { data: lead } = await supabase
+      .from("leads")
+      .select("*, plans(name)")
+      .eq("order_id", orderId)
+      .single();
+
     const { error } = await supabase
       .from("leads")
       .update({
@@ -72,6 +80,18 @@ export async function POST(request: NextRequest) {
         { error: "Failed to update payment status" },
         { status: 500 }
       );
+    }
+
+    // Send WhatsApp notification
+    if (lead) {
+      await sendPaymentWhatsApp({
+        to: lead.whatsapp || lead.phone,
+        customerName: lead.name,
+        orderId: orderId,
+        amount: lead.amount,
+        status: paymentStatus as "pending" | "completed" | "failed",
+        planName: lead.plans?.name || "Magh Mela 2026",
+      });
     }
 
     return NextResponse.json({ success: true });
@@ -114,7 +134,18 @@ export async function GET(request: NextRequest) {
 
     const data = await response.json();
 
+    // Get lead details
+    const { data: lead } = await supabase
+      .from("leads")
+      .select("*, plans(name)")
+      .eq("order_id", orderId)
+      .single();
+
+    const previousStatus = lead?.payment_status;
+    let newStatus: "pending" | "completed" | "failed" = "pending";
+
     if (data.order_status === "PAID") {
+      newStatus = "completed";
       await supabase
         .from("leads")
         .update({
@@ -122,6 +153,26 @@ export async function GET(request: NextRequest) {
           payment_id: data.cf_order_id,
         })
         .eq("order_id", orderId);
+    } else if (data.order_status === "EXPIRED" || data.order_status === "TERMINATED") {
+      newStatus = "failed";
+      await supabase
+        .from("leads")
+        .update({
+          payment_status: "failed",
+        })
+        .eq("order_id", orderId);
+    }
+
+    // Send WhatsApp notification only if status changed
+    if (lead && previousStatus !== newStatus && newStatus !== "pending") {
+      await sendPaymentWhatsApp({
+        to: lead.whatsapp || lead.phone,
+        customerName: lead.name,
+        orderId: orderId,
+        amount: lead.amount,
+        status: newStatus,
+        planName: lead.plans?.name || "Magh Mela 2026",
+      });
     }
 
     return NextResponse.json({

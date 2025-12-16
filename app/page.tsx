@@ -404,7 +404,7 @@ export default function Page() {
               className="h-6 mx-auto mb-4"
             />
             <img
-              src="/atmanirbhar/aatmanirbhar.svg"
+              src="/atmanirbhar/header.png"
               alt="Project Aatmanirbhar Jyotish"
               className="w-80 h-auto mx-auto"
             />

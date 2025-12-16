@@ -18,8 +18,14 @@ CREATE TABLE plans (
 CREATE TABLE leads (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL,
+  place_city VARCHAR(255) NOT NULL,
   phone VARCHAR(20) NOT NULL,
+  whatsapp VARCHAR(20) NOT NULL,
+  emergency_contact VARCHAR(20) NOT NULL,
+  number_of_people INTEGER NOT NULL DEFAULT 1,
+  journey_start_date DATE NOT NULL,
+  arrival_date DATE NOT NULL,
+  number_of_days INTEGER NOT NULL DEFAULT 1,
   plan_id UUID REFERENCES plans(id),
   payment_status VARCHAR(20) DEFAULT 'pending' CHECK (payment_status IN ('pending', 'completed', 'failed')),
   payment_id VARCHAR(255),
@@ -47,8 +53,8 @@ INSERT INTO admins (email, password) VALUES
   ('admin@maghmela.com', 'Mela@2026');
 
 -- Create indexes for better query performance
-CREATE INDEX IF NOT EXISTS idx_leads_email ON leads(email);
 CREATE INDEX IF NOT EXISTS idx_leads_phone ON leads(phone);
+CREATE INDEX IF NOT EXISTS idx_leads_whatsapp ON leads(whatsapp);
 CREATE INDEX IF NOT EXISTS idx_leads_payment_status ON leads(payment_status);
 CREATE INDEX IF NOT EXISTS idx_leads_created_at ON leads(created_at DESC);
 
