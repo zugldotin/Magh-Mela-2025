@@ -120,7 +120,7 @@ export default function EnrollmentModal({
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
-    
+
     if (!formData.name.trim()) {
       newErrors.name = "Name is required";
     }
@@ -139,7 +139,9 @@ export default function EnrollmentModal({
     }
     if (!formData.emergencyContact.trim()) {
       newErrors.emergencyContact = "Emergency contact is required";
-    } else if (!/^[0-9]{10}$/.test(formData.emergencyContact.replace(/\s/g, ""))) {
+    } else if (
+      !/^[0-9]{10}$/.test(formData.emergencyContact.replace(/\s/g, ""))
+    ) {
       newErrors.emergencyContact = "Invalid number (10 digits required)";
     }
     if (!formData.numberOfPeople || parseInt(formData.numberOfPeople) < 1) {
@@ -154,7 +156,7 @@ export default function EnrollmentModal({
     if (!formData.numberOfDays || parseInt(formData.numberOfDays) < 1) {
       newErrors.numberOfDays = "At least 1 day required";
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -220,7 +222,9 @@ export default function EnrollmentModal({
       const data = await res.json();
 
       if (data.success && data.payment_session_id) {
-        const existingScript = document.querySelector('script[src*="cashfree"]');
+        const existingScript = document.querySelector(
+          'script[src*="cashfree"]'
+        );
         if (existingScript) existingScript.remove();
 
         const script = document.createElement("script");
@@ -228,10 +232,25 @@ export default function EnrollmentModal({
         script.async = true;
         script.onload = async () => {
           try {
-            const cashfree = await (window as unknown as { Cashfree: (config: { mode: string }) => { checkout: (options: { paymentSessionId: string; redirectTarget: string }) => Promise<{ error?: { message: string }; redirect?: boolean; paymentDetails?: unknown }> } }).Cashfree({
-              mode: "sandbox",
+            const cashfreeEnv =
+              process.env.NEXT_PUBLIC_CASHFREE_ENV || "sandbox";
+            const cashfree = await (
+              window as unknown as {
+                Cashfree: (config: { mode: string }) => {
+                  checkout: (options: {
+                    paymentSessionId: string;
+                    redirectTarget: string;
+                  }) => Promise<{
+                    error?: { message: string };
+                    redirect?: boolean;
+                    paymentDetails?: unknown;
+                  }>;
+                };
+              }
+            ).Cashfree({
+              mode: cashfreeEnv,
             });
-            
+
             const result = await cashfree.checkout({
               paymentSessionId: data.payment_session_id,
               redirectTarget: "_modal",
@@ -239,7 +258,9 @@ export default function EnrollmentModal({
 
             if (result.error) {
               console.error("Payment error:", result.error);
-              alert(result.error.message || "Payment failed. Please try again.");
+              alert(
+                result.error.message || "Payment failed. Please try again."
+              );
               setPaymentProcessing(false);
               setSubmitting(false);
             }
@@ -318,7 +339,9 @@ export default function EnrollmentModal({
           <div className="p-8 text-center">
             <Loader2 className="h-12 w-12 animate-spin text-[#761D14] mx-auto mb-4" />
             <p className="text-gray-600">Please complete the payment...</p>
-            <p className="text-sm text-gray-500 mt-2">Do not close this window</p>
+            <p className="text-sm text-gray-500 mt-2">
+              Do not close this window
+            </p>
           </div>
         </DialogContent>
       </Dialog>
@@ -327,7 +350,10 @@ export default function EnrollmentModal({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent onClose={handleClose} className="p-0 overflow-hidden max-h-[90vh]">
+      <DialogContent
+        onClose={handleClose}
+        className="p-0 overflow-hidden max-h-[90vh]"
+      >
         <div className="bg-[#761D14] p-4 text-center">
           <DialogHeader>
             <DialogTitle className="text-white text-lg">
@@ -363,7 +389,9 @@ export default function EnrollmentModal({
                       }`}
                     >
                       <div className="font-bold text-gray-800">{plan.name}</div>
-                      <div className="text-lg font-bold text-[#761D14]">₹{plan.price}</div>
+                      <div className="text-lg font-bold text-[#761D14]">
+                        ₹{plan.price}
+                      </div>
                     </button>
                   ))}
                 </div>
@@ -378,7 +406,9 @@ export default function EnrollmentModal({
                   value={formData.name}
                   onChange={(e) => handleInputChange("name", e.target.value)}
                 />
-                {errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
+                {errors.name && (
+                  <p className="text-xs text-red-500">{errors.name}</p>
+                )}
               </div>
 
               {/* Place / City */}
@@ -388,9 +418,13 @@ export default function EnrollmentModal({
                   id="placeCity"
                   placeholder="Enter your city"
                   value={formData.placeCity}
-                  onChange={(e) => handleInputChange("placeCity", e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("placeCity", e.target.value)
+                  }
                 />
-                {errors.placeCity && <p className="text-xs text-red-500">{errors.placeCity}</p>}
+                {errors.placeCity && (
+                  <p className="text-xs text-red-500">{errors.placeCity}</p>
+                )}
               </div>
 
               {/* Phone Numbers Row */}
@@ -404,7 +438,9 @@ export default function EnrollmentModal({
                     value={formData.phone}
                     onChange={(e) => handleInputChange("phone", e.target.value)}
                   />
-                  {errors.phone && <p className="text-xs text-red-500">{errors.phone}</p>}
+                  {errors.phone && (
+                    <p className="text-xs text-red-500">{errors.phone}</p>
+                  )}
                 </div>
                 <div className="space-y-1">
                   <Label htmlFor="whatsapp">WhatsApp Number *</Label>
@@ -413,9 +449,13 @@ export default function EnrollmentModal({
                     type="tel"
                     placeholder="10 digits"
                     value={formData.whatsapp}
-                    onChange={(e) => handleInputChange("whatsapp", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("whatsapp", e.target.value)
+                    }
                   />
-                  {errors.whatsapp && <p className="text-xs text-red-500">{errors.whatsapp}</p>}
+                  {errors.whatsapp && (
+                    <p className="text-xs text-red-500">{errors.whatsapp}</p>
+                  )}
                 </div>
               </div>
 
@@ -427,9 +467,15 @@ export default function EnrollmentModal({
                   type="tel"
                   placeholder="10 digit emergency number"
                   value={formData.emergencyContact}
-                  onChange={(e) => handleInputChange("emergencyContact", e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("emergencyContact", e.target.value)
+                  }
                 />
-                {errors.emergencyContact && <p className="text-xs text-red-500">{errors.emergencyContact}</p>}
+                {errors.emergencyContact && (
+                  <p className="text-xs text-red-500">
+                    {errors.emergencyContact}
+                  </p>
+                )}
               </div>
 
               {/* Number of People */}
@@ -441,9 +487,15 @@ export default function EnrollmentModal({
                   min="1"
                   placeholder="1"
                   value={formData.numberOfPeople}
-                  onChange={(e) => handleInputChange("numberOfPeople", e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("numberOfPeople", e.target.value)
+                  }
                 />
-                {errors.numberOfPeople && <p className="text-xs text-red-500">{errors.numberOfPeople}</p>}
+                {errors.numberOfPeople && (
+                  <p className="text-xs text-red-500">
+                    {errors.numberOfPeople}
+                  </p>
+                )}
               </div>
 
               {/* Dates Row */}
@@ -454,9 +506,15 @@ export default function EnrollmentModal({
                     id="journeyStartDate"
                     type="date"
                     value={formData.journeyStartDate}
-                    onChange={(e) => handleInputChange("journeyStartDate", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("journeyStartDate", e.target.value)
+                    }
                   />
-                  {errors.journeyStartDate && <p className="text-xs text-red-500">{errors.journeyStartDate}</p>}
+                  {errors.journeyStartDate && (
+                    <p className="text-xs text-red-500">
+                      {errors.journeyStartDate}
+                    </p>
+                  )}
                 </div>
                 <div className="space-y-1">
                   <Label htmlFor="arrivalDate">Arrival in Prayagraj *</Label>
@@ -464,9 +522,13 @@ export default function EnrollmentModal({
                     id="arrivalDate"
                     type="date"
                     value={formData.arrivalDate}
-                    onChange={(e) => handleInputChange("arrivalDate", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("arrivalDate", e.target.value)
+                    }
                   />
-                  {errors.arrivalDate && <p className="text-xs text-red-500">{errors.arrivalDate}</p>}
+                  {errors.arrivalDate && (
+                    <p className="text-xs text-red-500">{errors.arrivalDate}</p>
+                  )}
                 </div>
               </div>
 
@@ -479,9 +541,13 @@ export default function EnrollmentModal({
                   min="1"
                   placeholder="1"
                   value={formData.numberOfDays}
-                  onChange={(e) => handleInputChange("numberOfDays", e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("numberOfDays", e.target.value)
+                  }
                 />
-                {errors.numberOfDays && <p className="text-xs text-red-500">{errors.numberOfDays}</p>}
+                {errors.numberOfDays && (
+                  <p className="text-xs text-red-500">{errors.numberOfDays}</p>
+                )}
               </div>
 
               {/* Submit Button */}
