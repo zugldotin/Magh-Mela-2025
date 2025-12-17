@@ -685,7 +685,7 @@ export default function Page() {
                       })()
                     ) : (
                       <img
-                        src={String(option.icon || option.src)}
+                        src={String(option.icon)}
                         alt={option.alt ?? option.title}
                         className="w-12 h-12 object-contain"
                         loading="lazy"
