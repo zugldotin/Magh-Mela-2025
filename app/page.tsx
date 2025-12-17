@@ -364,7 +364,7 @@ const stats = [
     title: "<b>50+</b><br/>Verified Stay Options",
   },
   {
-    icon: "/atmanirbhar/mandala.gif",
+    icon: "/atmanirbhar/teacher.gif",
     title: "<b>24×7</b><br/>Local Support",
   },
   {
@@ -522,7 +522,7 @@ export default function Page() {
         />
         <div className="max-md:max-w-md max-w-4xl  mx-auto text-center relative z-10">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4 tracking-tight text-[#761D14]">
-            Why You Should Not Miss This?
+            Why PrayagrajVisit.in?{" "}
           </h2>
 
           <DecorativeOrnament
@@ -543,7 +543,7 @@ export default function Page() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45, delay: 0.08 * index }}
-                className="bg-white rounded-lg p-[14px] shadow-sm flex flex-col items-center text-center md:w-[220px]"
+                className="bg-white rounded-lg p-[14px] shadow-sm flex flex-col items-center  md:w-[220px]"
               >
                 <img
                   src={benefit.icon}
@@ -552,7 +552,7 @@ export default function Page() {
                   className="!w-[60px] !aspect-square mb-3 sm:w-[65px]! "
                 />
                 <p
-                  className="text-slate-800 text-sm sm:text-base font-semibold leading-tight font-poppins"
+                  className="text-slate-800 text-[12px] font-semibold leading-tight font-poppins"
                   dangerouslySetInnerHTML={{ __html: benefit.title }}
                 />
               </motion.div>
@@ -565,7 +565,7 @@ export default function Page() {
               alt="Celebratory bird animation"
               className="!w-[60px] !aspect-square flex-shrink-0 sm:W-[70px]!"
             />
-            <p className="text-slate-800 text-sm font-semibold font-poppins sm:text-base">
+            <p className="text-slate-800 text-sm font-semibold font-poppins text-[12px]">
               <b>1M+</b>took the first step.
               <br /> Now it ‘s your turn to become a Part of India’s Largest
               Growing <b>Astro-Community</b>{" "}
@@ -607,9 +607,10 @@ export default function Page() {
                       aria-hidden="true"
                       className="w-[50px]  flex-shrink-0 sm:w-[55px]! aspect-square!"
                     />
+
                     <div className="flex-1">
                       <p
-                        className="text-slate-700 text-sm leading-tight font-poppins sm:text-base"
+                        className="text-slate-700 text-sm leading-tight font-poppins sm:text-base text-start "
                         dangerouslySetInnerHTML={{ __html: day.title }}
                       />
                     </div>
@@ -766,7 +767,7 @@ export default function Page() {
         />
         <div className="max-md:max-w-md mx-auto text-center max-w-4xl">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4 tracking-tight text-[#761D14]">
-            Trusted by Over 1 Million Spiritual Learners
+            Trusted by Spiritual Learners
           </h2>
 
           <DecorativeOrnament
@@ -775,10 +776,11 @@ export default function Page() {
           />
 
           <p className="text-[#787575] leading-normal mb-8 font-poppins z-10 relative">
-            India’s leading platform for practical astrology and occult learning
-            — trusted by thousands. <br /> Gain practical knowledge, build
-            confidence, and turn their passion for astrology into a respected
-            skill — all from their home.
+            Prayagraj’s most trusted local guide service for Magh Mela — relied on by
+            thousands of pilgrims. <br />
+            Experience the sacred Sangam with proper guidance, safety, and peace
+            of mind, all while staying close to the true spiritual essence of
+            the Mela.
           </p>
 
           <div className="grid grid-cols-2  gap-2 mb-2 z-10 relative md:flex ">
@@ -799,17 +801,6 @@ export default function Page() {
                 />
               </div>
             ))}
-          </div>
-
-          <div className="bg-white rounded-lg p-4 shadow-sm flex items-center gap-4 mb-8 z-10 relative justify-center">
-            <img
-              src="/atmanirbhar/teacher.gif"
-              alt="Teacher leading the program"
-              className="!w-[60px] !aspect-square flex-shrink-0"
-            />
-            <p className="text-slate-800 text-sm font-semibold font-poppins sm:text-base">
-              Led by <b>India&apos;s Most Credible</b> Teachers
-            </p>
           </div>
 
           <Button
@@ -838,10 +829,11 @@ export default function Page() {
           <DecorativeOrnament className="w-72 h-4 mx-auto mb-6" fill="white" />
 
           <p className="text-white/80 text-base leading-normal mb-8 font-poppins">
-            Our faculty isn’t just experienced — they’re celebrated authorities
-            in their fields. They’ve guided thousands—and now they’re here to
-            help you become a confident, self-reliant astrologer through Project
-            Aatmanirbhar Jyotish
+            Our local guides aren't just knowledgeable — they're trusted
+            Prayagraj experts with 20+ years of experience. They've helped
+            thousands of pilgrims experience Magh Mela safely and spiritually —
+            and now they're here to guide you through the sacred Sangam journey
+            with confidence, comfort, and authentic local insights.
           </p>
 
           <div className="grid grid-cols-2 gap-4 mb-8 text-white z-30 relative md:grid-cols-3">
@@ -850,7 +842,7 @@ export default function Page() {
                 key={index}
                 className="rounded-xl overflow-hidden bg-white/5 p-4 flex flex-col items-center text-center h-full"
               >
-                <div className="w-28 h-28 rounded-full overflow-hidden mb-3 flex-shrink-0">
+                <div className="w-28 h-28 rounded-full overflow-hidden mb-3">
                   <Image
                     src={guru.imgUrl}
                     alt={guru.name}
@@ -860,12 +852,10 @@ export default function Page() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="text-sm font-bold truncate max-w-[160px]">
-                  {guru.name}
-                </div>
+                <div className="text-sm font-bold truncate ">{guru.name}</div>
                 <div className="text-sm mt-1">
-                  <div className="truncate max-w-[200px]">{guru.content1}</div>
-                  <div className="text-xs text-white/85 truncate max-w-[200px]">
+                  <div className="truncate">{guru.content1}</div>
+                  <div className="text-xs text-white/85 truncate text-wrap">
                     {guru.content2}
                   </div>
                 </div>
@@ -892,7 +882,7 @@ export default function Page() {
         />
         <div className="max-md:max-w-md  mx-auto text-center relative z-30 md:w-4xl w-full">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4 tracking-tight text-white">
-            What You Will Experience
+            How It Works?
           </h2>
 
           <DecorativeOrnament className="w-72 h-4 mx-auto mb-8" fill="white" />
@@ -920,7 +910,7 @@ export default function Page() {
                     />
                     <div className="flex-1">
                       <p
-                        className="text-slate-700 text-sm leading-tight font-poppins sm:text-base"
+                        className="text-slate-700 text-sm leading-tight font-poppins sm:text-base text-start"
                         dangerouslySetInnerHTML={{ __html: day.title }}
                       />
                     </div>
@@ -946,8 +936,8 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="bg-white py-2 px-3  fixed bottom-0 left-0 right-0 z-40 max-md:max-w-md mx-auto ">
-        <div className="absolute w-full h-full sm:bg-[url('/atmanirbhar/bgImg.jpeg')] bg-cover bg-bottom bg-no-repeat left-0 bottom-0 flex" />
+      <section className="bg-white py-2 px-3  fixed bottom-0 left-0 right-0 z-40 w-fullmx-auto ">
+        <div className="absolute w-full h-full bg-[url('/atmanirbhar/bgImg.jpeg')] bg-cover bg-bottom bg-no-repeat left-0 bottom-0 flex" />
         <div className="absolute w-full h-[70%] bg-gradient-to-b from-white via-white/80 to-white/10 left-0 top-0 flex z-10" />
 
         <motion.div
@@ -974,7 +964,7 @@ export default function Page() {
           )}
         />
 
-        <div className="max-w-6xl mx-auto relative z-20">
+        <div className="max-w-4xl mx-auto relative z-20">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
             <div>
               <h2 className="text-2xl sm:text-3xl font-bold mb-4 tracking-tight text-[#761D14]">
@@ -1300,7 +1290,7 @@ function CaraouselComp() {
 export function Footer() {
   return (
     <footer className="bg-[#761C14] text-[#FFF8E5] py-12 px-6 pb-24 flex items-center justify-center flex-col w-full">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 ">
+      <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-8 ">
         <div className="">
           <h3 className="text-xl font-bold mb-4">About</h3>
           <p className="text-[#FFF8E5]/90 leading-relaxed">
