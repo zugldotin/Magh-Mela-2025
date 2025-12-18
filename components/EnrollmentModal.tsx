@@ -86,7 +86,6 @@ export default function EnrollmentModal({
     placeCity: "",
     phone: "",
     whatsapp: "",
-    emergencyContact: "",
     numberOfPeople: "1",
     journeyStartDate: "",
     arrivalDate: "",
@@ -137,13 +136,6 @@ export default function EnrollmentModal({
     } else if (!/^[0-9]{10}$/.test(formData.whatsapp.replace(/\s/g, ""))) {
       newErrors.whatsapp = "Invalid WhatsApp number (10 digits required)";
     }
-    if (!formData.emergencyContact.trim()) {
-      newErrors.emergencyContact = "Emergency contact is required";
-    } else if (
-      !/^[0-9]{10}$/.test(formData.emergencyContact.replace(/\s/g, ""))
-    ) {
-      newErrors.emergencyContact = "Invalid number (10 digits required)";
-    }
     if (!formData.numberOfPeople || parseInt(formData.numberOfPeople) < 1) {
       newErrors.numberOfPeople = "At least 1 person required";
     }
@@ -175,7 +167,6 @@ export default function EnrollmentModal({
           place_city: formData.placeCity,
           phone: formData.phone,
           whatsapp: formData.whatsapp,
-          emergency_contact: formData.emergencyContact,
           number_of_people: parseInt(formData.numberOfPeople),
           journey_start_date: formData.journeyStartDate,
           arrival_date: formData.arrivalDate,
@@ -306,7 +297,6 @@ export default function EnrollmentModal({
         placeCity: "",
         phone: "",
         whatsapp: "",
-        emergencyContact: "",
         numberOfPeople: "1",
         journeyStartDate: "",
         arrivalDate: "",
@@ -388,9 +378,13 @@ export default function EnrollmentModal({
                           : "border-gray-200 hover:border-gray-300"
                       }`}
                     >
-                      <div className="font-bold text-gray-800">{plan.name}</div>
-                      <div className="text-lg font-bold text-[#761D14]">
-                        ₹{plan.price}
+                      <div className="flex justify-between">
+                        <div className="font-bold text-gray-800">
+                          {plan.name}
+                        </div>
+                        <div className="text-lg font-bold text-[#761D14]">
+                          ₹{plan.price}
+                        </div>
                       </div>
                     </button>
                   ))}
@@ -459,43 +453,44 @@ export default function EnrollmentModal({
                 </div>
               </div>
 
-              {/* Emergency Contact */}
-              <div className="space-y-1">
-                <Label htmlFor="emergencyContact">Emergency Contact *</Label>
-                <Input
-                  id="emergencyContact"
-                  type="tel"
-                  placeholder="10 digit emergency number"
-                  value={formData.emergencyContact}
-                  onChange={(e) =>
-                    handleInputChange("emergencyContact", e.target.value)
-                  }
-                />
-                {errors.emergencyContact && (
-                  <p className="text-xs text-red-500">
-                    {errors.emergencyContact}
-                  </p>
-                )}
-              </div>
-
-              {/* Number of People */}
-              <div className="space-y-1">
-                <Label htmlFor="numberOfPeople">Number of People *</Label>
-                <Input
-                  id="numberOfPeople"
-                  type="number"
-                  min="1"
-                  placeholder="1"
-                  value={formData.numberOfPeople}
-                  onChange={(e) =>
-                    handleInputChange("numberOfPeople", e.target.value)
-                  }
-                />
-                {errors.numberOfPeople && (
-                  <p className="text-xs text-red-500">
-                    {errors.numberOfPeople}
-                  </p>
-                )}
+              {/* Number of People and Days Row */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <Label htmlFor="numberOfPeople">Number of People *</Label>
+                  <Input
+                    id="numberOfPeople"
+                    type="number"
+                    min="1"
+                    placeholder="1"
+                    value={formData.numberOfPeople}
+                    onChange={(e) =>
+                      handleInputChange("numberOfPeople", e.target.value)
+                    }
+                  />
+                  {errors.numberOfPeople && (
+                    <p className="text-xs text-red-500">
+                      {errors.numberOfPeople}
+                    </p>
+                  )}
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor="numberOfDays">Number of Days Stay *</Label>
+                  <Input
+                    id="numberOfDays"
+                    type="number"
+                    min="1"
+                    placeholder="1"
+                    value={formData.numberOfDays}
+                    onChange={(e) =>
+                      handleInputChange("numberOfDays", e.target.value)
+                    }
+                  />
+                  {errors.numberOfDays && (
+                    <p className="text-xs text-red-500">
+                      {errors.numberOfDays}
+                    </p>
+                  )}
+                </div>
               </div>
 
               {/* Dates Row */}
@@ -530,24 +525,6 @@ export default function EnrollmentModal({
                     <p className="text-xs text-red-500">{errors.arrivalDate}</p>
                   )}
                 </div>
-              </div>
-
-              {/* Number of Days */}
-              <div className="space-y-1">
-                <Label htmlFor="numberOfDays">Number of Days Stay *</Label>
-                <Input
-                  id="numberOfDays"
-                  type="number"
-                  min="1"
-                  placeholder="1"
-                  value={formData.numberOfDays}
-                  onChange={(e) =>
-                    handleInputChange("numberOfDays", e.target.value)
-                  }
-                />
-                {errors.numberOfDays && (
-                  <p className="text-xs text-red-500">{errors.numberOfDays}</p>
-                )}
               </div>
 
               {/* Submit Button */}

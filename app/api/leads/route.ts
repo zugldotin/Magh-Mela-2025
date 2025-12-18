@@ -15,7 +15,6 @@ export async function POST(request: NextRequest) {
       place_city,
       phone,
       whatsapp,
-      emergency_contact,
       number_of_people,
       journey_start_date,
       arrival_date,
@@ -29,7 +28,6 @@ export async function POST(request: NextRequest) {
       !place_city ||
       !phone ||
       !whatsapp ||
-      !emergency_contact ||
       !number_of_people ||
       !journey_start_date ||
       !arrival_date ||
@@ -52,7 +50,6 @@ export async function POST(request: NextRequest) {
         place_city,
         phone,
         whatsapp,
-        emergency_contact,
         number_of_people,
         journey_start_date,
         arrival_date,
