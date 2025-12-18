@@ -441,20 +441,26 @@ export default function Page() {
 
         <div className="max-md:max-w-md md:max-w-full  mx-auto z-30 relative">
           <div className="text-center mt-20 sm:mt-36 flex flex-col relative z-10 items-center justify-center overflow-visible w-full h-full sm:gap-3">
+            {/* SEO-optimized H1 tag - hidden visually but visible to search engines */}
+            <h1 className="sr-only">
+              Magh Mela 2025 Prayagraj - Book Your Spiritual Journey at Triveni
+              Sangam with Trusted Local Guides
+            </h1>
+
             <motion.img
               src="/atmanirbhar/header.png"
-              alt="Project Aatmanirbhar Jyotish"
-              loading="lazy"
+              alt="Magh Mela 2025 Prayagraj - Triveni Sangam Spiritual Journey"
+              loading="eager"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15 }}
               className="w-72 sm:w-80 md:w-96 h-auto mx-auto z-10 max-w-full max-md:mt-32"
             />
             <div className="text-center mb-6 z-10 italic ">
-              <div className="text-[#fff] font-poppins text-xs md:text-sm max-w-[280px] md:max-w-[320px] mx-auto">
-                Experience the Divinity and
-                <br /> of Triveni Sangam at Prayagraj
-              </div>
+              <p className="text-[#fff] font-poppins text-xs md:text-sm max-w-[280px] md:max-w-[320px] mx-auto">
+                Experience the Divinity and Spirituality
+                <br /> of Triveni Sangam at Prayagraj Magh Mela 2025
+              </p>
             </div>
           </div>
         </div>
@@ -776,8 +782,8 @@ export default function Page() {
           />
 
           <p className="text-[#787575] leading-normal mb-8 font-poppins z-10 relative">
-            Prayagraj’s most trusted local guide service for Magh Mela — relied on by
-            thousands of pilgrims. <br />
+            Prayagraj’s most trusted local guide service for Magh Mela — relied
+            on by thousands of pilgrims. <br />
             Experience the sacred Sangam with proper guidance, safety, and peace
             of mind, all while staying close to the true spiritual essence of
             the Mela.
