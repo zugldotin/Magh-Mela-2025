@@ -11,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2 } from "lucide-react";
+import { Loader2, Info } from "lucide-react";
 
 interface Plan {
   id: string;
@@ -78,6 +78,7 @@ export default function EnrollmentModal({
 }: EnrollmentModalProps) {
   const [plans, setPlans] = useState<Plan[]>([]);
   const [selectedPlanId, setSelectedPlanId] = useState<string>("");
+  const [showPlanInfo, setShowPlanInfo] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [paymentProcessing, setPaymentProcessing] = useState(false);
@@ -368,27 +369,83 @@ export default function EnrollmentModal({
                 <Label>Select Plan</Label>
                 <div className="flex gap-2">
                   {plans.map((plan) => (
-                    <button
-                      key={plan.id}
-                      type="button"
-                      onClick={() => setSelectedPlanId(plan.id)}
-                      className={`flex-1 p-3 rounded-lg border-2 transition-all ${
-                        selectedPlanId === plan.id
-                          ? "border-[#761D14] bg-[#FFF8E5]"
-                          : "border-gray-200 hover:border-gray-300"
-                      }`}
-                    >
-                      <div className="flex justify-between">
-                        <div className="font-bold text-gray-800">
-                          {plan.name}
+                    <div key={plan.id} className="flex-1">
+                      <button
+                        type="button"
+                        onClick={() => setSelectedPlanId(plan.id)}
+                        className={`w-full p-3 rounded-lg border-2 transition-all ${
+                          selectedPlanId === plan.id
+                            ? "border-[#761D14] bg-[#FFF8E5]"
+                            : "border-gray-200 hover:border-gray-300"
+                        }`}
+                      >
+                        <div className="flex justify-between items-start">
+                          <div className="font-bold text-gray-800 text-left">
+                            {plan.name}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="text-lg font-bold text-[#761D14]">
+                              ₹{plan.price}
+                            </div>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setShowPlanInfo(
+                                  showPlanInfo === plan.id ? null : plan.id
+                                );
+                              }}
+                              className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+                              title="View plan details"
+                            >
+                              <Info className="h-4 w-4 text-[#761D14]" />
+                            </button>
+                          </div>
                         </div>
-                        <div className="text-lg font-bold text-[#761D14]">
-                          ₹{plan.price}
-                        </div>
-                      </div>
-                    </button>
+                      </button>
+                    </div>
                   ))}
                 </div>
+
+                {/* Plan Details */}
+                {showPlanInfo && (
+                  <div className="mt-3 p-4 bg-[#FFF8E5] rounded-lg border border-[#761D14]/20">
+                    {plans
+                      .filter((p) => p.id === showPlanInfo)
+                      .map((plan) => (
+                        <div key={plan.id} className="space-y-3">
+                          <div>
+                            <h4 className="font-bold text-[#761D14] mb-1">
+                              {plan.name}
+                            </h4>
+                            <p className="text-sm text-gray-700">
+                              {plan.description}
+                            </p>
+                          </div>
+                          {plan.features && plan.features.length > 0 && (
+                            <div>
+                              <h5 className="font-semibold text-gray-800 text-sm mb-2">
+                                Features:
+                              </h5>
+                              <ul className="space-y-1">
+                                {plan.features.map((feature, idx) => (
+                                  <li
+                                    key={idx}
+                                    className="text-sm text-gray-700 flex items-start gap-2"
+                                  >
+                                    <span className="text-[#761D14] mt-0.5">
+                                      ✓
+                                    </span>
+                                    <span>{feature}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                  </div>
+                )}
               </div>
 
               {/* Main Person Name */}
