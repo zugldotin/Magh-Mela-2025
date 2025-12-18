@@ -376,7 +376,7 @@ const stats = [
 const gurus = [
   {
     imgUrl:
-      "https://images.unsplash.com/photo-1504198453319-5ce911bafcde?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1566753323558-f4e0952af115?auto=format&fit=crop&w=1200&q=80",
     name: "Pandit Ramesh Mishra",
     content1: "Local Sangam Guide",
     content2: "Trusted Prayagraj guide with 20+ years local experience",
