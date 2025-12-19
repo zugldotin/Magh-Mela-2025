@@ -101,7 +101,7 @@ export function PricingCards() {
               <div className="mb-4">
                 <div className="flex items-baseline gap-2">
                   <span className="text-4xl font-bold text-[#761D14]">
-                    ₹199
+                    ₹299
                   </span>
                   <span className="text-[#787575]">/ person</span>
                 </div>
@@ -175,7 +175,7 @@ export function PricingCards() {
               <div className="mb-4">
                 <div className="flex items-baseline gap-2">
                   <span className="text-4xl font-bold text-[#761D14]">
-                    ₹499
+                    ₹699
                   </span>
                   <span className="text-[#787575] font-semibold">/ person</span>
                 </div>
@@ -228,7 +228,6 @@ export function PricingCards() {
             </div>
           </Card>
         </div>
-
       </div>
     </section>
   );

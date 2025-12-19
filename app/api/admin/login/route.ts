@@ -22,8 +22,6 @@ export async function POST(request: NextRequest) {
       .eq("email", email.toLowerCase())
       .single();
 
-    console.log("Admin query result:", { admin, error });
-
     if (error || !admin) {
       console.log("Admin not found or error:", error);
       return NextResponse.json(
@@ -39,11 +37,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const token = jwt.sign(
-      { id: admin.id, email: admin.email },
-      JWT_SECRET,
-      { expiresIn: "24h" }
-    );
+    const token = jwt.sign({ id: admin.id, email: admin.email }, JWT_SECRET, {
+      expiresIn: "24h",
+    });
 
     const response = NextResponse.json({
       success: true,

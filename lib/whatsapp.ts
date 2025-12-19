@@ -24,7 +24,11 @@ export async function sendPaymentWhatsApp({
   amount,
   status,
   planName = "Magh Mela 2026",
-}: SendWhatsAppParams): Promise<{ success: boolean; messageId?: string; error?: string }> {
+}: SendWhatsAppParams): Promise<{
+  success: boolean;
+  messageId?: string;
+  error?: string;
+}> {
   if (!client) {
     console.error("Twilio client not configured");
     return { success: false, error: "WhatsApp service not configured" };
@@ -97,7 +101,6 @@ _Magh Mela 2026 Team_`;
       body: messageBody,
     });
 
-    console.log("WhatsApp message sent:", message.sid);
     return { success: true, messageId: message.sid };
   } catch (error) {
     console.error("Failed to send WhatsApp message:", error);
@@ -142,7 +145,6 @@ export async function sendBookingConfirmation({
       }),
     });
 
-    console.log("WhatsApp template message sent:", message.sid);
     return { success: true, messageId: message.sid };
   } catch (error) {
     console.error("Failed to send WhatsApp template message:", error);

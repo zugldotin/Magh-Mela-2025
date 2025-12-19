@@ -36,22 +36,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Debug: Log environment configuration (remove in production)
-    console.log("🔧 Cashfree Environment:", CASHFREE_ENV);
-    console.log("🔑 App ID exists:", !!CASHFREE_APP_ID);
-    console.log("🔑 Secret Key exists:", !!CASHFREE_SECRET_KEY);
-    console.log(
-      "🔑 App ID (first 10 chars):",
-      CASHFREE_APP_ID?.substring(0, 10)
-    );
-
     // Determine API URL based on environment
     const CASHFREE_API_URL =
       CASHFREE_ENV === "production"
         ? "https://api.cashfree.com/pg/orders"
         : "https://sandbox.cashfree.com/pg/orders";
-
-    console.log("🌐 Using API URL:", CASHFREE_API_URL);
 
     // Create order using Orders API
     const orderPayload = {
@@ -99,7 +88,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log("✅ Cashfree order created successfully");
     return NextResponse.json({
       success: true,
       payment_session_id: data.payment_session_id,
