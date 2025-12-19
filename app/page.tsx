@@ -987,7 +987,7 @@ export default function Page() {
                 Need immediate help?
               </span>
               <a
-                href="tel:+911234567890"
+                href="tel:+919369397971"
                 className="inline-flex items-center px-3 py-2 bg-[#761D14] text-white rounded-md text-sm shadow-sm"
               >
                 <Phone className="w-4 h-4 mr-2" aria-hidden />
@@ -1090,7 +1090,7 @@ export default function Page() {
 
                 <div className="mt-4 flex items-center gap-3">
                   <a
-                    href="https://wa.me/911234567890"
+                    href="https://wa.me/919369397971"
                     target="_blank"
                     rel="noreferrer"
                     className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 bg-[#25D366] text-white rounded-md text-sm"
@@ -1099,7 +1099,7 @@ export default function Page() {
                     WhatsApp
                   </a>
                   <a
-                    href="tel:+911234567890"
+                    href="tel:+919369397971"
                     className="inline-flex items-center gap-2 px-3 py-2 border border-[#761D14] text-[#761D14] rounded-md text-sm"
                   >
                     <Phone className="w-4 h-4" aria-hidden />
@@ -1310,15 +1310,15 @@ export function Footer() {
           <ul className="space-y-3 text-[#FFF8E5]/90">
             <li className="flex items-center gap-2">
               <span>📞</span>
-              <span>Helpline: XXXXXXXX</span>
+              <span>Helpline: +91 93693 97971</span>
             </li>
             <li className="flex items-center gap-2">
               <span>💬</span>
-              <span>WhatsApp Support</span>
+              <span>WhatsApp: +91 93693 97971</span>
             </li>
             <li className="flex items-center gap-2">
               <span>📧</span>
-              <span>Email support</span>
+              <span>prayagrajvisit.in@gmail.com</span>
             </li>
           </ul>
         </div>
