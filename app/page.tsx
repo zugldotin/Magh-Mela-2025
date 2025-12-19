@@ -1327,17 +1327,26 @@ export function Footer() {
           <h3 className="text-xl font-bold mb-4">Legal</h3>
           <ul className="space-y-2">
             <li>
-              <a href="#" className="text-[#FFF8E5]/90 underline">
+              <a
+                href="/privacy-policy"
+                className="text-[#FFF8E5]/90 hover:text-[#FFF8E5] underline transition-colors"
+              >
                 Privacy Policy
               </a>
             </li>
             <li>
-              <a href="#" className="text-[#FFF8E5]/90 underline">
+              <a
+                href="/terms-conditions"
+                className="text-[#FFF8E5]/90 hover:text-[#FFF8E5] underline transition-colors"
+              >
                 Terms & Conditions
               </a>
             </li>
             <li>
-              <a href="#" className="text-[#FFF8E5]/90 underline">
+              <a
+                href="/refund-policy"
+                className="text-[#FFF8E5]/90 hover:text-[#FFF8E5] underline transition-colors"
+              >
                 Refund Policy
               </a>
             </li>
