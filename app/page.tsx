@@ -571,10 +571,10 @@ export default function Page() {
               alt="Celebratory bird animation"
               className="!w-[60px] !aspect-square flex-shrink-0 sm:W-[70px]!"
             />
-            <p className="text-slate-800 text-sm font-semibold font-poppins text-[12px]">
-              <b>1M+</b>took the first step.
-              <br /> Now it ‘s your turn to become a Part of India’s Largest
-              Growing <b>Astro-Community</b>{" "}
+            <p className="text-slate-800 text-[12px] font-semibold font-poppins text-left leading-tight">
+              <b>10,000+</b> pilgrims guided safely.
+              <br /> Now it&apos;s your turn to join the most trusted{" "}
+              <b>Magh Mela Spiritual Journey</b>.
             </p>
           </div>
 
