@@ -1,8 +1,12 @@
+"use client";
+
+import { useState } from "react";
 import { Check } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import EnrollmentModal from "@/components/EnrollmentModal";
 
 // Decorative ornament SVG component
 const DecorativeOrnament = ({ className = "", fill = "white" }) => (
@@ -52,6 +56,16 @@ const DecorativeOrnament = ({ className = "", fill = "white" }) => (
 );
 
 export function PricingCards() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPlanType, setSelectedPlanType] = useState<
+    "normal" | "premium" | null
+  >(null);
+
+  const handlePlanSelect = (planType: "normal" | "premium") => {
+    setSelectedPlanType(planType);
+    setIsModalOpen(true);
+  };
+
   return (
     <section className="bg-[#FFF8E5] px-4 py-16 relative">
       <div
@@ -140,7 +154,10 @@ export function PricingCards() {
               </ul>
 
               {/* CTA Button */}
-              <Button className="w-full bg-[#761D14] hover:bg-[#5a1510] text-white font-bold text-base py-6 rounded-xl">
+              <Button
+                onClick={() => handlePlanSelect("normal")}
+                className="w-full bg-[#761D14] hover:bg-[#5a1510] text-white font-bold text-base py-6 rounded-xl"
+              >
                 Choose Normal Plan →
               </Button>
             </div>
@@ -222,13 +239,23 @@ export function PricingCards() {
               </ul>
 
               {/* CTA Button */}
-              <Button className="w-full bg-[#761D14] hover:bg-[#5a1510] text-white font-bold text-base py-6 rounded-xl">
+              <Button
+                onClick={() => handlePlanSelect("premium")}
+                className="w-full bg-[#761D14] hover:bg-[#5a1510] text-white font-bold text-base py-6 rounded-xl"
+              >
                 Choose Premium Plan →
               </Button>
             </div>
           </Card>
         </div>
       </div>
+
+      {/* Enrollment Modal */}
+      <EnrollmentModal
+        open={isModalOpen}
+        onOpenChange={setIsModalOpen}
+        initialPlanType={selectedPlanType}
+      />
     </section>
   );
 }

@@ -24,6 +24,7 @@ interface Plan {
 interface EnrollmentModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  initialPlanType?: "normal" | "premium" | null;
 }
 
 const DecorativeOrnament = ({ className = "", fill = "white" }) => (
@@ -75,6 +76,7 @@ const DecorativeOrnament = ({ className = "", fill = "white" }) => (
 export default function EnrollmentModal({
   open,
   onOpenChange,
+  initialPlanType,
 }: EnrollmentModalProps) {
   const [plans, setPlans] = useState<Plan[]>([]);
   const [selectedPlanId, setSelectedPlanId] = useState<string>("");
@@ -107,7 +109,20 @@ export default function EnrollmentModal({
       const data = await res.json();
       if (data.plans && data.plans.length > 0) {
         setPlans(data.plans);
-        setSelectedPlanId(data.plans[0].id);
+
+        // Pre-select plan based on initialPlanType
+        if (initialPlanType) {
+          const targetPlan = data.plans.find((plan: Plan) =>
+            plan.name.toLowerCase().includes(initialPlanType.toLowerCase())
+          );
+          if (targetPlan) {
+            setSelectedPlanId(targetPlan.id);
+          } else {
+            setSelectedPlanId(data.plans[0].id);
+          }
+        } else {
+          setSelectedPlanId(data.plans[0].id);
+        }
       }
     } catch (error) {
       console.error("Failed to fetch plans:", error);
@@ -584,10 +599,9 @@ export default function EnrollmentModal({
                 </div>
               </div>
 
-              {/* Submit Button */}
               <Button
                 type="submit"
-                className="w-full !bg-[#761D14] !text-white py-6 mt-4"
+                className="w-full bg-[#761D14]! text-white! py-6 mt-4"
                 disabled={submitting || !selectedPlan}
               >
                 {submitting ? (
