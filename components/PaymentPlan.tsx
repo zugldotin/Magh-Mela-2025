@@ -186,7 +186,7 @@ export function PricingCards() {
               </div>
             </div>
 
-            {/* Card Content */}
+            {/* Card Contents */}
             <div className="p-5 bg-gradient-to-br from-white to-[#FFF8E5]/30">
               {/* Price */}
               <div className="mb-4">
