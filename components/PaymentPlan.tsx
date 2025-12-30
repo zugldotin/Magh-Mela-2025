@@ -76,10 +76,10 @@ export function PricingCards() {
         )}
       />
 
-      <div className="max-md:max-w-md max-w-4xl mx-auto text-center relative z-20">
+      <div className="max-md:max-w-md max-w-2xl mx-auto text-center relative z-20">
         {/* Header */}
         <h2 className="text-[#761D14] text-xl font-bold mb-4 font-roboto">
-          Choose Your Magh Mela Plan
+          Magh Mela 2025 Plan
         </h2>
 
         <DecorativeOrnament className="w-72 h-4 mx-auto mb-6" fill="#761D14" />
@@ -89,127 +89,59 @@ export function PricingCards() {
           trusted local experts.
         </p>
 
-        {/* Pricing Cards */}
-        <div className="grid md:grid-cols-2 gap-6 mb-2 relative z-20">
-          {/* Normal Plan */}
-          <Card className="bg-white rounded-lg shadow-sm overflow-hidden border-none">
-            {/* Image Header */}
-            <div className="relative h-40 w-full overflow-hidden">
-              <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/prayagraj-sangam-ganges-river-boats-pilgrims-sunri-csKoE59XpvFxzAcGOQN4xSoJzSauUy.jpg"
-                alt="Magh Mela Sangam"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              <div className="absolute top-3 left-3">
-                <div className="inline-flex items-center gap-2 bg-[#761D14] text-white px-3 py-1 rounded-full text-sm font-semibold">
-                  NORMAL PLAN
-                </div>
-              </div>
-            </div>
-
-            {/* Card Content */}
-            <div className="p-5">
-              {/* Price */}
-              <div className="mb-4">
-                <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-bold text-[#761D14]">
-                    ₹299
-                  </span>
-                  <span className="text-[#787575]">/ person</span>
-                </div>
-              </div>
-
-              {/* Features */}
-              <ul className="space-y-3 mb-6">
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-[#761D14] shrink-0 mt-0.5" />
-                  <span className="text-[#787575] text-sm">Slot booking</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-[#761D14] shrink-0 mt-0.5" />
-                  <span className="text-[#787575] text-sm">
-                    Basic stay support
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-[#761D14] shrink-0 mt-0.5" />
-                  <span className="text-[#787575] text-sm">
-                    Food & cab planning
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-[#761D14] shrink-0 mt-0.5" />
-                  <span className="text-[#787575] text-sm">
-                    WhatsApp trip manager
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-[#761D14] shrink-0 mt-0.5" />
-                  <span className="text-[#787575] text-sm">
-                    Pay remaining amount later
-                  </span>
-                </li>
-              </ul>
-
-              {/* CTA Button */}
-              <Button
-                onClick={() => handlePlanSelect("normal")}
-                className="w-full bg-[#761D14] hover:bg-[#5a1510] text-white font-bold text-base py-6 rounded-xl"
-              >
-                Choose Normal Plan →
-              </Button>
-            </div>
-          </Card>
-
-          {/* Premium Plan */}
-          <Card className="bg-white rounded-lg shadow-sm overflow-hidden border-2 border-[#761D14] relative">
+        {/* Pricing Card */}
+        <div className="mb-2 relative z-20">
+          <Card className="bg-white rounded-lg shadow-lg overflow-hidden border-2 border-[#761D14] relative max-w-md mx-auto">
             {/* Popular Badge */}
             <div className="absolute top-3 right-3 z-10 bg-[#761D14] text-white px-3 py-1 rounded-full text-xs font-bold">
-              ⭐ RECOMMENDED
+              ⭐ BEST VALUE
             </div>
 
             {/* Image Header */}
-            <div className="relative h-40 w-full overflow-hidden">
+            <div className="relative h-48 w-full overflow-hidden">
               <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/prayagraj-kumbh-mela-temples-golden-hour-sacred-gh-mK7190MbVwp49uz7ha0hWE3GmUBOHC.jpg"
-                alt="Premium Magh Mela Experience"
+                alt="Magh Mela Experience"
                 fill
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               <div className="absolute top-3 left-3">
-                <div className="inline-flex items-center gap-2 bg-[#761D14] text-white px-3 py-1 rounded-full text-sm font-semibold">
-                  PREMIUM PLAN
+                <div className="inline-flex items-center gap-2 bg-[#761D14] text-white px-4 py-2 rounded-full text-sm font-semibold">
+                  COMPLETE MAGH MELA PACKAGE
                 </div>
               </div>
             </div>
 
             {/* Card Contents */}
-            <div className="p-5 bg-gradient-to-br from-white to-[#FFF8E5]/30">
+            <div className="p-6 bg-gradient-to-br from-white to-[#FFF8E5]/30">
               {/* Price */}
-              <div className="mb-4">
-                <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-bold text-[#761D14]">
-                    ₹699
+              <div className="mb-6 text-center">
+                <div className="flex items-baseline justify-center gap-2">
+                  <span className="text-5xl font-bold text-[#761D14]">
+                    ₹299
                   </span>
-                  <span className="text-[#787575] font-semibold">/ person</span>
+                  <span className="text-[#787575] font-semibold text-lg">
+                    / person
+                  </span>
                 </div>
+                <p className="text-[#787575] text-sm mt-2">
+                  Everything you need for a blessed journey
+                </p>
               </div>
 
               {/* Features */}
-              <ul className="space-y-3 mb-6">
+              <ul className="space-y-3 mb-8">
                 <li className="flex items-start gap-3">
                   <Check className="w-5 h-5 text-[#761D14] shrink-0 mt-0.5 font-bold" />
                   <span className="text-[#787575] text-sm font-medium">
-                    Priority booking
+                    Priority slot booking
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="w-5 h-5 text-[#761D14] shrink-0 mt-0.5 font-bold" />
                   <span className="text-[#787575] text-sm font-medium">
-                    Better stay options
+                    Premium stay options
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
@@ -227,13 +159,25 @@ export function PricingCards() {
                 <li className="flex items-start gap-3">
                   <Check className="w-5 h-5 text-[#761D14] shrink-0 mt-0.5 font-bold" />
                   <span className="text-[#787575] text-sm font-medium">
-                    Faster confirmation
+                    Food & cab planning assistance
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="w-5 h-5 text-[#761D14] shrink-0 mt-0.5 font-bold" />
                   <span className="text-[#787575] text-sm font-medium">
-                    Foreign tourist friendly
+                    24/7 WhatsApp support
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Check className="w-5 h-5 text-[#761D14] shrink-0 mt-0.5 font-bold" />
+                  <span className="text-[#787575] text-sm font-medium">
+                    Fast confirmation & foreign tourist friendly
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Check className="w-5 h-5 text-[#761D14] shrink-0 mt-0.5 font-bold" />
+                  <span className="text-[#787575] text-sm font-medium">
+                    Pay remaining amount later
                   </span>
                 </li>
               </ul>
@@ -241,9 +185,9 @@ export function PricingCards() {
               {/* CTA Button */}
               <Button
                 onClick={() => handlePlanSelect("premium")}
-                className="w-full bg-[#761D14] hover:bg-[#5a1510] text-white font-bold text-base py-6 rounded-xl"
+                className="w-full bg-[#761D14] hover:bg-[#5a1510] text-white font-bold text-base py-6 rounded-xl shadow-lg hover:shadow-xl transition-all"
               >
-                Choose Premium Plan →
+                Book Your Spot Now →
               </Button>
             </div>
           </Card>
